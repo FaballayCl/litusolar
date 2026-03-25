@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "titulo": "5 Beneficios Clave de la Energía Solar en 2024",
+        "fecha": "25 de Julio, 2024",
+        "extracto": "Descubre cómo la energía solar está revolucionando el ahorro energético doméstico y reduciendo la huella de carbono...",
+        "imagen": "blog-1.png"
+    },
+    {
+        "id": 2,
+        "titulo": "Cómo prepararse para su instalación solar residencias",
+        "fecha": "15 de Junio, 2024",
+        "extracto": "Todo lo que necesitas saber antes de que nuestros instaladores profesionales lleguen a tu hogar...",
+        "imagen": "blog-2.png"
+    },
+    {
+        "id": 3,
+        "titulo": "El futuro de las baterías solares inteligentes",
+        "fecha": "5 de Mayo, 2024",
+        "extracto": "Analizamos las nuevas tecnologías de almacenamiento que harán tu hogar 100% autosuficiente...",
+        "imagen": "blog-3.png"
+    }
+]

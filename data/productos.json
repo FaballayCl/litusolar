@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "nombre": "Módulo Monocristalino Pro",
+        "potencia": "550W",
+        "descripcion": "Alta eficiencia, ideal para tejados residenciales con espacio limitado.",
+        "imagen": "placeholder-panel-1.png"
+    },
+    {
+        "id": 2,
+        "nombre": "Panel Bifacial lituSolar",
+        "potencia": "610W",
+        "descripcion": "Generación energética por ambas caras. Máximo rendimiento.",
+        "imagen": "placeholder-panel-2.png"
+    },
+    {
+        "id": 3,
+        "nombre": "Inversor Inteligente Smart 5kW",
+        "potencia": "5kW",
+        "descripcion": "Monitoreo en tiempo real y compatibilidad con baterías.",
+        "imagen": "placeholder-inversor-1.png"
+    }
+]
