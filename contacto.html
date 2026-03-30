@@ -1,3 +1,4 @@
+
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -5,6 +6,23 @@
     <title>Contacto | lituSolar</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Estilo rápido para el mensaje de éxito */
+        #success-message {
+            display: none;
+            text-align: center;
+            padding: 40px;
+            background-color: #f0fdf4;
+            border: 2px solid #22c55e;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+        #success-message i {
+            font-size: 3rem;
+            color: #22c55e;
+            margin-bottom: 15px;
+        }
+    </style>
 </head>
 <body>
 
@@ -34,25 +52,40 @@
         <p style="text-align: center; color: #6B7280; margin-bottom: 40px;">Déjanos tus datos y un experto se pondrá en contacto contigo para una asesoría personalizada.</p>
         
         <div class="contacto-wrapper card-style">
-            <div id="success-message" class="alert-success"></div>
+            <div id="success-message">
+                <i class="fas fa-check-circle"></i>
+                <h2>¡Muchas gracias!</h2>
+                <p>Tu mensaje ha sido enviado con éxito. Te estaremos respondiendo a la brevedad para asesorarte en tu proyecto solar.</p>
+                <a href="index.html" class="btn btn-primary" style="margin-top: 20px; display: inline-block;">Volver al inicio</a>
+            </div>
 
-            <form id="contact-form">
+            <form id="contact-form" action="https://formsubmit.co/info@litusolar.cl" method="POST">
+                
+                <input type="hidden" name="_subject" value="NUEVO CLIENTE: Consulta desde lituSolar.cl">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
+
                 <div class="form-group">
                     <label for="name">Nombre Completo</label>
                     <input type="text" id="name" name="name" placeholder="Ej: Juan Pérez" required>
-                    <span id="name-error" class="error-msg"></span>
                 </div>
+
                 <div class="form-group">
                     <label for="email">Correo Electrónico</label>
                     <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required>
-                    <span id="email-error" class="error-msg"></span>
                 </div>
+
+                <div class="form-group">
+                    <label for="phone">Teléfono de Contacto</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Ej: +56 9 1234 5678">
+                </div>
+
                 <div class="form-group">
                     <label for="message">Mensaje o Consulta</label>
                     <textarea id="message" name="message" rows="5" placeholder="Cuéntanos qué necesitas..." required></textarea>
-                    <span id="message-error" class="error-msg"></span>
                 </div>
-                <button type="submit" class="btn btn-primary btn-block">Enviar Mensaje</button>
+
+                <button type="submit" id="submit-btn" class="btn btn-primary btn-block">Enviar Mensaje</button>
             </form>
         </div>
     </main>
@@ -71,6 +104,41 @@
         </div>
     </footer>
 
-    <script src="js/script.js"></script>
+    <script>
+        const form = document.getElementById('contact-form');
+        const successMessage = document.getElementById('success-message');
+        const submitBtn = document.getElementById('submit-btn');
+
+        form.onsubmit = function(e) {
+            e.preventDefault(); // Evita que la página se recargue
+            submitBtn.innerText = "Enviando...";
+            submitBtn.disabled = true;
+
+            const formData = new FormData(form);
+
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    form.style.display = 'none'; // Oculta el formulario
+                    successMessage.style.display = 'block'; // Muestra el mensaje de gracias
+                } else {
+                    alert("Hubo un error al enviar. Por favor, intenta de nuevo o escríbenos al WhatsApp.");
+                    submitBtn.innerText = "Enviar Mensaje";
+                    submitBtn.disabled = false;
+                }
+            })
+            .catch(error => {
+                alert("Error de conexión. Revisa tu internet.");
+                submitBtn.innerText = "Enviar Mensaje";
+                submitBtn.disabled = false;
+            });
+        };
+    </script>
 </body>
 </html>
