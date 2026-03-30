@@ -1,8 +1,38 @@
+<!DOCTYPE html>
 <html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto | lituSolar</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
 <body>
+
+    <header>
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/logo.png" alt="Logo de lituSolar">
+                </a>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="catalogo.html">Catálogo</a></li>
+                    <li><a href="proyectos.html">Proyectos</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contacto.html" class="active">Contacto</a></li>
+                </ul>
+            </nav>
+            <i class="fas fa-bars menu-toggle"></i>
+        </div>
+    </header>
+
     <main class="container page-content">
-        <h1>Contacta con lituSolar</h1>
-        <p>Déjanos tus datos y nos pondremos en contacto contigo lo antes posible para una asesoría personalizada.</p>
+        <h1>Contacta con <span class="text-orange">lituSolar</span></h1>
+        <p style="text-align: center; color: #6B7280; margin-bottom: 40px;">Déjanos tus datos y un experto se pondrá en contacto contigo para una asesoría personalizada.</p>
         
         <div class="contacto-wrapper card-style">
             <div id="success-message" class="alert-success"></div>
@@ -10,17 +40,17 @@
             <form id="contact-form">
                 <div class="form-group">
                     <label for="name">Nombre Completo</label>
-                    <input type="text" id="name" name="name" required>
+                    <input type="text" id="name" name="name" placeholder="Ej: Juan Pérez" required>
                     <span id="name-error" class="error-msg"></span>
                 </div>
                 <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
+                    <label for="email">Correo Electrónico</label>
+                    <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required>
                     <span id="email-error" class="error-msg"></span>
                 </div>
                 <div class="form-group">
-                    <label for="message">Mensaje</label>
-                    <textarea id="message" name="message" rows="5" required></textarea>
+                    <label for="message">Mensaje o Consulta</label>
+                    <textarea id="message" name="message" rows="5" placeholder="Cuéntanos qué necesitas..." required></textarea>
                     <span id="message-error" class="error-msg"></span>
                 </div>
                 <button type="submit" class="btn btn-primary btn-block">Enviar Mensaje</button>
@@ -28,5 +58,20 @@
         </div>
     </main>
 
-    </body>
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-section">
+                <h3>lituSolar</h3>
+                <p>Energía Solar Inteligente para un futuro sostenible.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p>info@litusolar.cl</p>
+                <p>+56 9 7199 5226</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
 </html>
