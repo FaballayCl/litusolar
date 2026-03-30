@@ -1,23 +1,37 @@
 [
     {
         "id": 1,
-        "nombre": "Módulo Monocristalino Pro",
-        "potencia": "550W",
-        "descripcion": "Alta eficiencia, ideal para tejados residenciales con espacio limitado.",
-        "imagen": "placeholder-panel-1.png"
+        "nombre": "Kit Solar 3000W",
+        "potencia": "$2.000.000",
+        "descripcion": "Inversor híbrido MPPT 3kW, Batería de litio 2.5kW 100A, 5 paneles de 620W bifaciales. Incluye accesorios, rieles, cableado e instalación.",
+        "imagen": "kit-3000w.jpg"
     },
     {
         "id": 2,
-        "nombre": "Panel Bifacial lituSolar",
-        "potencia": "610W",
-        "descripcion": "Generación energética por ambas caras. Máximo rendimiento.",
-        "imagen": "placeholder-panel-2.png"
+        "nombre": "Kit Solar 6000W",
+        "potencia": "$2.700.000",
+        "descripcion": "Inversor Híbrido MPPT 6kW, Batería Litio 5kW, 6 Paneles de 620W Bifaciales. Incluye rieles, accesorios, cableado e instalación incluida.",
+        "imagen": "kit-6000w-basico.jpg"
     },
     {
         "id": 3,
-        "nombre": "Inversor Inteligente Smart 5kW",
-        "potencia": "5kW",
-        "descripcion": "Monitoreo en tiempo real y compatibilidad con baterías.",
-        "imagen": "placeholder-inversor-1.png"
+        "nombre": "Kit Solar 6000W Plus",
+        "potencia": "$3.000.000",
+        "descripcion": "Inversor Híbrido MPPT 6kW, Batería de Litio 5kW, 8 Paneles Bifaciales de 620W. Incluye rieles, accesorios, cableado e instalación incluida.",
+        "imagen": "kit-6000w-intermedio.jpg"
+    },
+    {
+        "id": 4,
+        "nombre": "Kit Solar 6000W Premium",
+        "potencia": "$3.450.000",
+        "descripcion": "Inversor Híbrido MPPT 6kW, Batería de Litio 8.75kW, 8 Paneles Bifaciales de 620W. Incluye rieles, accesorios, cableado e instalación incluida.",
+        "imagen": "kit-6000w-premium.jpg"
+    },
+    {
+        "id": 5,
+        "nombre": "Batería Litio Felicity 14,3 kWh",
+        "potencia": "Oferta: $2.000.000",
+        "descripcion": "Modelo FLA48280-EU (51,3V | 280Ah). Eficiente almacenamiento ideal para sistemas residenciales o comerciales. (Precio Ref: $2.300.000).",
+        "imagen": "bateria-felicity.jpg"
     }
 ]
