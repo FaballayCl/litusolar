@@ -1,97 +1,111 @@
 [
   {
-    "id": "LS-P001",
-    "categoria": "Paneles Solares",
-    "nombre": "Panel Monocristalino Bifacial 500W LituMax",
-    "marca": "LituSolar Pro",
-    "descripcion_corta": "Máxima eficiencia y captación de energía por ambas caras.",
-    "descripcion_larga": "El panel LituMax utiliza tecnología monocristalina de tipo N y diseño bifacial, permitiendo generar hasta un 25% más de energía al captar la luz reflejada en la parte trasera. Ideal para instalaciones en techos con albedo alto o montaje en suelo.",
+    "id": "KIT-3000W",
+    "categoria": "Kits Fotovoltaicos",
+    "nombre": "Kit Solar 3000W",
+    "marca": "LituSolar 🇨🇱",
+    "descripcion_corta": "Solución eficiente para hogares con consumo moderado.",
+    "descripcion_larga": "Kit On-Grid completo que incluye 5 paneles de 620W bifaciales, inversor híbrido MPPT de 3kW y batería de litio de 2.5kW. Ideal para reducir significativamente la cuenta de luz.",
     "especificaciones": {
-      "potencia_pico": "500W",
-      "eficiencia": "22.5%",
-      "tipo_celda": "Monocristalina tipo N",
-      "bifacialidad": "Hasta 80%",
-      "dimensiones": "2180 x 1100 x 35 mm",
-      "peso": "28 kg",
-      "garantia_potencia": "30 años"
+      "potencia_total": "3000W",
+      "paneles": "5x 620W Bifaciales",
+      "inversor": "Híbrido MPPT 3kW",
+      "bateria": "Litio 2.5kW 100A",
+      "instalacion": "Incluida"
     },
     "precio": {
-      "monto": 289990,
-      "moneda": "CLP",
-      "iva_incluido": true
+      "monto": 2000000,
+      "moneda": "CLP"
     },
-    "imagen_url": "images/productos/panel-litumax-500w.jpg",
-    "en_stock": true,
-    "destacado": true
-  },
-  {
-    "id": "LS-I002",
-    "categoria": "Inversores",
-    "nombre": "Inversor Híbrido Monofásico LituGrid 5kW",
-    "marca": "LituSolar Power",
-    "descripcion_corta": "Gestión inteligente de energía con soporte para baterías.",
-    "descripcion_larga": "Inversor híbrido de 5kW perfecto para autoconsumo residencial. Permite gestionar paneles solares, baterías de litio y la red eléctrica, optimizando el ahorro y proporcionando energía de respaldo en cortes de luz.",
-    "especificaciones": {
-      "potencia_salida": "5000W",
-      "fases": "Monofásico",
-      "eficiencia_maxima": "97.6%",
-      "mppt": "2 canales independientes",
-      "voltaje_bateria": "48V / Alto Voltaje (configurable)",
-      "garantia": "10 años"
-    },
-    "precio": {
-      "monto": 1450000,
-      "moneda": "CLP",
-      "iva_incluido": true
-    },
-    "imagen_url": "images/productos/inversor-litugrid-5kw.jpg",
+    "imagen_url": "images/kit-3000w.jpg",
     "en_stock": true,
     "destacado": false
   },
   {
-    "id": "LS-B003",
-    "categoria": "Baterías",
-    "nombre": "Módulo de Batería de Litio LituStore 5.12kWh",
-    "marca": "LituSolar Storage",
-    "descripcion_corta": "Almacenamiento modular y seguro para tu hogar.",
-    "descripcion_larga": "Batería de Fosfato de Hierro y Litio (LiFePO4) de 5.12kWh. Su diseño modular permite apilar múltiples unidades para aumentar la capacidad de almacenamiento según tus necesidades. Compatible con los inversores LituGrid.",
+    "id": "KIT-6000W-B",
+    "categoria": "Kits Fotovoltaicos",
+    "nombre": "Kit Solar 6000W Básico",
+    "marca": "LituSolar 🇨🇱",
+    "descripcion_corta": "Potencia y ahorro para familias grandes.",
+    "descripcion_larga": "Sistema de 6000W con 6 paneles de 620W bifaciales. Incluye inversor de 6kW y batería de 5kW. Una inversión inteligente para la independencia energética nacional.",
     "especificaciones": {
-      "capacidad": "5.12 kWh",
-      "voltaje_nominal": "51.2 V",
-      "tipo": "LiFePO4",
-      "ciclos_vida": ">6000 (al 80% DoD)",
-      "escalabilidad": "Hasta 8 unidades en paralelo",
-      "garantia": "10 años"
+      "potencia_total": "6000W",
+      "paneles": "6x 620W Bifaciales",
+      "inversor": "Híbrido MPPT 6kW",
+      "bateria": "Litio 5kW",
+      "instalacion": "Incluida"
     },
     "precio": {
-      "monto": 2100000,
-      "moneda": "CLP",
-      "iva_incluido": true
+      "monto": 2700000,
+      "moneda": "CLP"
     },
-    "imagen_url": "images/productos/bateria-litustore-5kwh.jpg",
-    "en_stock": false,
+    "imagen_url": "images/kit-6000w-basico.jpg",
+    "en_stock": true,
     "destacado": true
   },
   {
-    "id": "LS-K004",
-    "categoria": "Kits Completos",
-    "nombre": "Kit Solar Residencial 3kWp 'Ahorro Total'",
-    "marca": "LituSolar Kits",
-    "descripcion_corta": "Todo lo necesario para empezar a ahorrar en tu cuenta de la luz.",
-    "descripcion_larga": "Este kit On-Grid incluye 6 paneles LituMax de 500W, un inversor LituGrid de 3kW, estructura de montaje para techo de zinc/teja y kit de protecciones AC/DC. No incluye instalación.",
+    "id": "KIT-6000W-I",
+    "categoria": "Kits Fotovoltaicos",
+    "nombre": "Kit Solar 6000W Plus",
+    "marca": "LituSolar 🇨🇱",
+    "descripcion_corta": "Mayor captación con 8 paneles bifaciales.",
+    "descripcion_larga": "Versión mejorada del kit de 6kW que aumenta la captación energética mediante 8 paneles bifaciales de 620W. Optimiza el rendimiento incluso en días nublados.",
     "especificaciones": {
-      "potencia_instalada": "3 kWp",
-      "paneles_incluidos": "6x LituMax 500W",
-      "inversor_incluido": "1x LituGrid 3kW On-Grid",
-      "estructura_montaje": "Aluminio anodizado (incluida)",
-      "protecciones": "Caja AC/DC certificada (incluida)"
+      "potencia_total": "6000W",
+      "paneles": "8x 620W Bifaciales",
+      "inversor": "Híbrido MPPT 6kW",
+      "bateria": "Litio 5kW",
+      "instalacion": "Incluida"
     },
     "precio": {
-      "monto": 3650000,
-      "moneda": "CLP",
-      "iva_incluido": true
+      "monto": 3000000,
+      "moneda": "CLP"
     },
-    "imagen_url": "images/productos/kit-ahorro-total-3kw.jpg",
+    "imagen_url": "images/kit-6000w-intermedio.jpg",
+    "en_stock": true,
+    "destacado": false
+  },
+  {
+    "id": "KIT-6000W-P",
+    "categoria": "Kits Fotovoltaicos",
+    "nombre": "Kit Solar 6000W Premium",
+    "marca": "LituSolar 🇨🇱",
+    "descripcion_corta": "Autonomía superior con batería de 8.75kW.",
+    "descripcion_larga": "Nuestra solución más robusta de 6kW. Combina 8 paneles bifaciales con una batería de litio de gran capacidad (8.75kW) para asegurar energía por más tiempo.",
+    "especificaciones": {
+      "potencia_total": "6000W",
+      "paneles": "8x 620W Bifaciales",
+      "inversor": "Híbrido MPPT 6kW",
+      "bateria": "Litio 8.75kW",
+      "instalacion": "Incluida"
+    },
+    "precio": {
+      "monto": 3450000,
+      "moneda": "CLP"
+    },
+    "imagen_url": "images/kit-6000w-premium.jpg",
+    "en_stock": true,
+    "destacado": true
+  },
+  {
+    "id": "BAT-FEL-14",
+    "categoria": "Almacenamiento",
+    "nombre": "Batería Litio Felicity 14.3 kWh",
+    "marca": "Felicitysolar 🔋",
+    "descripcion_corta": "Gran capacidad de almacenamiento para respaldo total.",
+    "descripcion_larga": "Batería de Litio de alta eficiencia (51.2V | 280Ah). Ideal para sistemas residenciales y comerciales que buscan respaldo garantizado y larga vida útil.",
+    "especificaciones": {
+      "capacidad": "14.3 kWh",
+      "voltaje": "51.2 V",
+      "amperaje": "280 Ah",
+      "modelo": "FLA48280-EU",
+      "garantia": "Respaldo técnico incluido"
+    },
+    "precio": {
+      "monto": 2000000,
+      "moneda": "CLP"
+    },
+    "imagen_url": "images/bateria-felicity.jpg",
     "en_stock": true,
     "destacado": false
   }
