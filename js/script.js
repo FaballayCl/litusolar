@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Lógica para el menú móvil (para todas las páginas)
+    // 1. Lógica para el menú móvil
     const menuToggle = document.querySelector('.menu-toggle');
     const navLinks = document.querySelector('.nav-links');
     if (menuToggle && navLinks) {
@@ -11,33 +11,31 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. Lógica para cargar el Catálogo Dinámico
     const catalogoContainer = document.getElementById('catalogo-container');
     
-    // Si la página actual tiene el contenedor del catálogo, ejecutamos esto:
     if (catalogoContainer) {
-        // fetch() va y "lee" nuestro archivo JSON
         fetch('data/productos.json')
             .then(response => response.json())
             .then(productos => {
-                catalogoContainer.innerHTML = ''; // Limpiamos el texto de carga
+                catalogoContainer.innerHTML = ''; 
                 
-                // Recorremos cada producto de la lista
                 productos.forEach(producto => {
-                    // Armamos la estructura HTML para cada tarjeta
+                    // Convertimos el número a formato de dinero chileno ($)
+                    const precioFormateado = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP' }).format(producto.precio.monto);
+
                     const card = `
                         <div class="product-card card-style">
-                            <img src="images/${producto.imagen}" alt="${producto.nombre}">
+                            <img src="${producto.imagen_url}" alt="${producto.nombre}">
                             <h3>${producto.nombre}</h3>
-                            <p class="power text-green" style="font-weight: bold; font-size: 1.2rem;">${producto.potencia}</p>
-                            <p class="desc">${producto.descripcion}</p>
+                            <p class="power text-green" style="font-weight: bold; font-size: 1.2rem;">${precioFormateado}</p>
+                            <p class="desc">${producto.descripcion_corta}</p>
                             <a href="https://wa.me/56971995226?text=Hola,%20me%20interesa%20el%20${encodeURIComponent(producto.nombre)}" target="_blank" class="btn btn-secondary" style="margin-top: 15px;">Me interesa</a>
                         </div>
                     `;
-                    // Añadimos la tarjeta al contenedor principal
                     catalogoContainer.innerHTML += card;
                 });
             })
             .catch(error => {
-                console.error('Error cargando los productos:', error);
-                catalogoContainer.innerHTML = '<p>Lo sentimos, hubo un problema al cargar el catálogo.</p>';
+                console.error('Error:', error);
+                catalogoContainer.innerHTML = '<p>Error al cargar el catálogo.</p>';
             });
     }
 });
