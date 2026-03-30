@@ -1,37 +1,44 @@
 /*
- * lituSolar - CSS Global
- * Estilos modernos, responsivos y profesionales.
- * Paleta de colores basada en el logo:
- * - Verde: #34C152 (Hoja)
- * - Naranja/Amarillo: #F38120 (Sol) - Usado para acentos y botones.
- * - Gris Oscuro/Negro: #333333 (Texto)
- * - Gris Claro: #f4f4f4 (Fondos)
+ * lituSolar - CSS Global Rediseñado
+ * Estética MODERNA, LIMPIA y PREMIUM.
+ * Basado en la paleta del logo:
+ * - Verde Aceto: #34C152
+ * - Naranja Aceto: #F38120
+ * - Base Limpia: #FFFFFF / #F9FAFB (Gris súper claro)
+ * - Texto Principal: #111827 (Gris muy oscuro, casi negro)
+ * - Texto Secundario: #6B7280 (Gris medio)
  */
+
+/* --- IMPORTACIÓN DE FUENTES MODERNAS (Google Fonts) --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap');
 
 /* --- RESET Y ESTILOS GLOBALES --- */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Inter', sans-serif; /* Fuente del cuerpo */
 }
 
 body {
-    line-height: 1.6;
-    color: #333333;
+    line-height: 1.7; /* Mayor interlineado para legibilidad */
+    color: #111827;
     background-color: #ffffff;
     overflow-x: hidden;
+    scroll-behavior: smooth;
 }
 
 h1, h2, h3 {
+    font-family: 'Poppins', sans-serif; /* Fuente geométrica para títulos */
+    font-weight: 700;
+    color: #111827;
     margin-bottom: 1rem;
-    color: #333333;
 }
 
 a {
     text-decoration: none;
     color: inherit;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 ul {
@@ -47,29 +54,34 @@ img {
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 30px; /* Mayor padding lateral */
 }
 
 /* --- COLORES DEL LOGO Y ACENTOS --- */
 .text-green { color: #34C152; }
 .text-orange { color: #F38120; }
-.bg-light { background-color: #f4f4f4; }
+.bg-light { background-color: #F9FAFB; } /* Fondo gris ultra-claro */
+.text-gray { color: #6B7280; }
 
-/* --- BOTONES --- */
+/* --- BOTONES MODERNOS --- */
 .btn {
     display: inline-block;
-    padding: 12px 24px;
-    border-radius: 50px;
+    padding: 14px 28px;
+    border-radius: 8px; /* Bordes suaves */
     border: none;
     cursor: pointer;
-    font-weight: bold;
+    font-weight: 600;
     text-align: center;
-    transition: background 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Sombra muy sutil */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.9rem;
 }
 
-.btn:active {
-    transform: translateY(1px);
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
 }
 
 .btn-primary {
@@ -90,29 +102,21 @@ img {
     background-color: #2b9e42;
 }
 
-/* --- SOMBRAS Y BORDES (Logo Style) --- */
-.card-style {
-    background: #ffffff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* Sombras suaves */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid rgba(0,0,0,0.03); /* Límite suave */
+.btn-block {
+    width: 100%;
+    display: block;
 }
 
-.card-style:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
-}
-
-/* --- HEADER / NAVEGACIÓN (Responsive) --- */
+/* --- HEADER / NAVEGACIÓN MODERNA --- */
 header {
-    background-color: #ffffff;
-    padding: 10px 0;
-    position: sticky;
+    background-color: rgba(255, 255, 255, 0.95); /* Semi-transparente */
+    backdrop-filter: blur(5px); /* Efecto blur detrás */
+    padding: 15px 0;
+    position: fixed; /* Fijo arriba siempre */
     top: 0;
+    width: 100%;
     z-index: 1000;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.03); /* Límite suave */
 }
 
 .nav-container {
@@ -122,62 +126,335 @@ header {
 }
 
 .logo img {
-    height: 50px;
+    height: 55px; /* Logo más grande */
     width: auto;
 }
 
 .nav-links {
     display: flex;
-    gap: 20px;
+    gap: 30px; /* Más espacio entre enlaces */
 }
 
 .nav-links a {
     font-weight: 500;
+    color: #111827;
+    position: relative;
+    padding-bottom: 5px;
 }
 
-.nav-links a:hover, .nav-links a.active {
-    color: #34C152; /* Verde de la hoja */
+/* Efecto hover subrayado animado */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #34C152; /* Verde de la hoja */
+    transition: width 0.3s;
+}
+
+.nav-links a:hover::after, .nav-links a.active::after {
+    width: 100%;
+}
+
+.nav-links a.active {
+    color: #34C152;
 }
 
 .menu-toggle {
     display: none;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     cursor: pointer;
-    color: #333;
+    color: #111827;
 }
 
-/* --- FOOTER --- */
-footer {
-    background-color: #333333;
-    color: #ffffff;
-    padding: 40px 0;
+/* --- SECCIÓN HERO PULIDA --- */
+#hero {
+    background-color: #ffffff;
+    padding: 180px 0 100px 0; /* Mayor espacio arriba para header fijo */
+}
+
+.hero-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.hero-text h1 {
+    font-size: 3.5rem; /* Título gigante */
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+}
+
+.hero-text p {
+    font-size: 1.25rem;
+    color: #6B7280;
+    margin-bottom: 2.5rem;
+    max-width: 600px;
+}
+
+.hero-image {
+    padding: 20px;
+    border-radius: 16px;
+    background-color: #F9FAFB;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+}
+
+/* --- SECCIÓN BENEFICIOS REDISEÑADA --- */
+#beneficios {
+    padding: 100px 0;
+}
+
+#beneficios h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 60px;
+}
+
+.beneficios-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.beneficio-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+    border: 1px solid rgba(0,0,0,0.03); /* Límite suave */
+    transition: all 0.3s ease;
+}
+
+.beneficio-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+.beneficio-card i {
+    font-size: 3rem;
+    margin-bottom: 25px;
+    background-color: #F9FAFB;
+    width: 80px;
+    height: 80px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.beneficio-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.beneficio-card p {
+    color: #6B7280;
+    font-size: 1rem;
+}
+
+/* --- SECCIÓN SERVICIOS LIMPIA --- */
+#servicios {
+    padding: 100px 0;
+}
+
+.services-container {
+    text-align: center;
+}
+
+.services-container h2 {
+    font-size: 2.5rem;
+    margin-bottom: 60px;
+}
+
+.services-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.service-item {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* Sombra sutil */
+    border: 1px solid rgba(0,0,0,0.02);
+}
+
+.service-item h3 {
+    color: #F38120; /* Naranja del sol */
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+}
+
+.service-item p {
+    color: #6B7280;
+}
+
+/* --- PÁGINAS INTERNAS --- */
+.page-content {
+    padding: 180px 0 100px 0;
+}
+
+.page-content h1 {
+    font-size: 3rem;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+/* Estilos genéricos para secciones de contenido */
+.card-style {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0,0,0,0.03);
+    margin-bottom: 40px;
+}
+
+.error-text, .error-msg {
+    color: #dc2626; /* Rojo de error moderno */
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+/* --- FORMULARIOS MODERNOS (contacto.html) --- */
+.contacto-wrapper {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.alert-success {
+    background-color: #d1fae5;
+    color: #065f46;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #a7f3d0;
+    margin-bottom: 25px;
+    display: none; /* Oculto por defecto */
+}
+
+.alert-success.active {
+    display: block;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #111827;
+}
+
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #d1d5db; /* Gris suave */
+    border-radius: 8px;
+    background-color: #ffffff;
+    font-size: 1rem;
+    color: #111827;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus, .form-group textarea:focus {
+    outline: none;
+    border-color: #34C152; /* Foco Verde */
+    box-shadow: 0 0 0 3px rgba(52, 193, 82, 0.1);
+}
+
+/* --- GRILLAS DE DATOS DINÁMICOS (catalogo/blog.html) --- */
+.product-grid, .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.product-card, .blog-card {
+    /* Mismo estilo base que la tarjeta de beneficios */
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 30px;
+    border: 1px solid rgba(0,0,0,0.03);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card img, .blog-card img {
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.blog-card h3 {
+    font-size: 1.4rem;
+}
+
+.blog-card .read-more {
     margin-top: auto;
+    font-weight: 600;
+}
+
+/* --- FOOTER MODERNO Y LIMPIO --- */
+footer {
+    background-color: #111827; /* Fondo muy oscuro */
+    color: #f3f4f6;
+    padding: 80px 0 40px 0;
 }
 
 .footer-container {
-    display: flex;
-    justify-content: space-between;
-    gap: 40px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 50px;
 }
 
 .footer-section h3 {
     color: #F38120; /* Naranja del sol */
-    margin-bottom: 1.5rem;
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+}
+
+.footer-section p {
+    color: #9ca3af; /* Gris claro */
+    margin-bottom: 10px;
+}
+
+.footer-section ul li {
+    margin-bottom: 12px;
+}
+
+.footer-section ul li a:hover {
+    color: #34C152; /* Verde en hover */
 }
 
 .social-links a {
-    margin-right: 15px;
-    font-size: 1.2rem;
+    margin-right: 20px;
+    font-size: 1.4rem;
+    color: #9ca3af;
+}
+
+.social-links a:hover {
+    color: #ffffff;
 }
 
 .copy-text {
     text-align: center;
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    color: #6b7280;
+    font-size: 0.9rem;
 }
 
-/* --- BOTÓN WHATSAPP FLOTANTE --- */
+/* --- BOTÓN WHATSAPP FLOTANTE PULIDO --- */
 .whatsapp-btn {
     position: fixed;
     bottom: 30px;
@@ -185,29 +462,45 @@ footer {
     background-color: #25D366;
     color: #ffffff;
     border-radius: 50px;
-    width: 60px;
-    height: 60px;
+    width: 65px;
+    height: 65px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2rem;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    font-size: 2.2rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     z-index: 1000;
 }
 
-/* --- MEDIA QUERIES (Responsividad) --- */
+.whatsapp-btn:hover {
+    transform: translateY(-5px);
+    background-color: #1ebd5a;
+}
+
+/* --- MEDIA QUERIES (Responsividad Rediseñada) --- */
+@media (max-width: 1024px) {
+    .beneficios-grid, .services-list, .product-grid, .blog-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 @media (max-width: 768px) {
+    .container {
+        padding: 0 20px;
+    }
+
+    /* Navegación Mobile */
     .nav-links {
         display: none;
         flex-direction: column;
         position: absolute;
-        top: 60px;
+        top: 85px; /* Altura del header */
         right: 0;
         background-color: #ffffff;
         width: 100%;
-        padding: 20px;
-        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-        z-index: 999;
+        padding: 30px;
+        box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+        gap: 20px;
     }
 
     .nav-links.active {
@@ -218,8 +511,32 @@ footer {
         display: block;
     }
 
-    .footer-container {
-        flex-direction: column;
+    /* Hero en columna */
+    .hero-container {
+        grid-template-columns: 1fr;
         text-align: center;
+    }
+
+    .hero-text h1 {
+        font-size: 2.8rem;
+    }
+
+    .hero-text p {
+        max-width: 100%;
+    }
+
+    /* Grillas a una columna */
+    .beneficios-grid, .services-list, .product-grid, .blog-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Footer en columna */
+    .footer-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .social-links a {
+        margin: 0 10px;
     }
 }
