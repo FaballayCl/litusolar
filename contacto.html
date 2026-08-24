@@ -1,144 +1,113 @@
-
+<!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contacto | lituSolar</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        /* Estilo rápido para el mensaje de éxito */
-        #success-message {
-            display: none;
-            text-align: center;
-            padding: 40px;
-            background-color: #f0fdf4;
-            border: 2px solid #22c55e;
-            border-radius: 12px;
-            margin-top: 20px;
-        }
-        #success-message i {
-            font-size: 3rem;
-            color: #22c55e;
-            margin-bottom: 15px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contactar Asesor Solar | lituSolar Chile</title>
+  <meta name="description" content="Solicita una asesoría solar personalizada para tu hogar o empresa en Chile. Cotizaciones de kits fotovoltaicos e instalación.">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="images/logo.png" type="image/png">
 </head>
 <body>
 
-    <header>
-        <div class="container nav-container">
-            <div class="logo">
-                <a href="index.html">
-                    <img src="images/logo.png" alt="Logo de LituSolar">
-                </a>
-            </div>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="index.html">Inicio</a></li>
-                    <li><a href="nosotros.html">Nosotros</a></li>
-                    <li><a href="catalogo.html">Catálogo</a></li>
-                    <li><a href="proyectos.html">Proyectos</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="contacto.html" class="active">Contacto</a></li>
-                </ul>
-            </nav>
-            <i class="fas fa-bars menu-toggle"></i>
+  <!-- HEADER -->
+  <header>
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <img src="images/logo.png" alt="lituSolar Logo">
+      </a>
+      <div class="menu-toggle">☰</div>
+      <nav class="nav-links">
+        <a href="index.html">Inicio</a>
+        <a href="catalogo.html">Catálogo</a>
+        <a href="nosotros.html">Nosotros</a>
+        <a href="contacto.html" class="active">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="container page-content">
+    <div style="text-align: center; max-width: 700px; margin: 0 auto 50px auto;">
+      <h1>Contacta con <span class="gradient-orange">lituSolar</span></h1>
+      <p class="text-gray" style="font-size: 1.05rem; margin-top: 10px;">
+        Déjanos tus datos y un ingeniero solar se pondrá en contacto contigo para una asesoría y cotización personalizada.
+      </p>
+    </div>
+
+    <div class="contacto-wrapper">
+      <div class="alert-success">
+        ¡Muchas gracias! Tu solicitud de cotización ha sido registrada con éxito. Te estaremos respondiendo a la brevedad.
+      </div>
+
+      <form>
+        <!-- Campo invisible Anti-Spam (Honeypot) -->
+        <input type="text" id="_hp_check" name="_hp_check" style="display:none;" tabindex="-1" autocomplete="off">
+
+        <div class="form-group">
+          <label for="nombre">Nombre Completo *</label>
+          <input type="text" id="nombre" name="nombre" placeholder="Ej: Juan Pérez" required>
         </div>
-    </header>
 
-    <main class="container page-content">
-        <h1>Contacta con <span class="text-orange">lituSolar</span></h1>
-        <p style="text-align: center; color: #6B7280; margin-bottom: 40px;">Déjanos tus datos y un experto se pondrá en contacto contigo para una asesoría personalizada.</p>
-        
-        <div class="contacto-wrapper card-style">
-            <div id="success-message">
-                <i class="fas fa-check-circle"></i>
-                <h2>¡Muchas gracias!</h2>
-                <p>Tu mensaje ha sido enviado con éxito. Te estaremos respondiendo a la brevedad para asesorarte en tu proyecto solar.</p>
-                <a href="index.html" class="btn btn-primary" style="margin-top: 20px; display: inline-block;">Volver al inicio</a>
-            </div>
-
-            <form id="contact-form" action="https://formsubmit.co/info@litusolar.cl" method="POST">
-                
-                <input type="hidden" name="_subject" value="NUEVO CLIENTE: Consulta desde lituSolar.cl">
-                <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_template" value="table">
-
-                <div class="form-group">
-                    <label for="name">Nombre Completo</label>
-                    <input type="text" id="name" name="name" placeholder="Ej: Juan Pérez" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="email">Correo Electrónico</label>
-                    <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="phone">Teléfono de Contacto</label>
-                    <input type="tel" id="phone" name="phone" placeholder="Ej: +56 9 1234 5678">
-                </div>
-
-                <div class="form-group">
-                    <label for="message">Mensaje o Consulta</label>
-                    <textarea id="message" name="message" rows="5" placeholder="Cuéntanos qué necesitas..." required></textarea>
-                </div>
-
-                <button type="submit" id="submit-btn" class="btn btn-primary btn-block">Enviar Mensaje</button>
-            </form>
+        <div class="form-group">
+          <label for="email">Correo Electrónico *</label>
+          <input type="email" id="email" name="email" placeholder="Ej: juan.perez@email.com" required>
         </div>
-    </main>
 
-    <footer>
-        <div class="container footer-container">
-            <div class="footer-section">
-                <h3>lituSolar</h3>
-                <p>Energía Solar Inteligente para un futuro sostenible.</p>
-            </div>
-            <div class="footer-section">
-                <h3>Contacto</h3>
-                <p>info@litusolar.cl</p>
-                <p>+56 9 7199 5226</p>
-            </div>
+        <div class="form-group">
+          <label for="telefono">Teléfono / WhatsApp *</label>
+          <input type="tel" id="telefono" name="telefono" placeholder="Ej: +56 9 1234 5678" required>
         </div>
-    </footer>
 
-    <script>
-        const form = document.getElementById('contact-form');
-        const successMessage = document.getElementById('success-message');
-        const submitBtn = document.getElementById('submit-btn');
+        <div class="form-group">
+          <label for="mensaje">Detalle de tu Consulta o Gasto Mensual en Luz</label>
+          <textarea id="mensaje" name="mensaje" rows="4" placeholder="Ej: Me interesa el Kit Solar 6000W para una casa en Litueche. Mi cuenta de luz mensual es de $100.000..."></textarea>
+        </div>
 
-        form.onsubmit = function(e) {
-            e.preventDefault(); // Evita que la página se recargue
-            submitBtn.innerText = "Enviando...";
-            submitBtn.disabled = true;
+        <button type="submit" class="btn btn-primary btn-block">
+          ⚡ Enviar Solicitud de Cotización
+        </button>
+      </form>
+    </div>
+  </main>
 
-            const formData = new FormData(form);
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-container">
+      <div class="footer-section">
+        <img src="images/logo.png" alt="lituSolar" style="height: 45px; margin-bottom: 15px; filter: brightness(0) invert(1);">
+        <p>Energía Solar Inteligente para un futuro nacional sustentable.</p>
+      </div>
+      <div class="footer-section">
+        <h3>Menú</h3>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="catalogo.html">Catálogo</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Contacto</h3>
+        <p>info@litusolar.cl</p>
+        <p>+56 9 7199 5226</p>
+        <p>Litueche / Región Metropolitana</p>
+      </div>
+      <div class="footer-section">
+        <h3>Garantía</h3>
+        <p>Distribuidor y Partner Oficial Felicitysolar en Chile.</p>
+      </div>
+    </div>
+    <div class="copy-text">
+      &copy; 2026 lituSolar. Todos los derechos reservados.
+    </div>
+  </footer>
 
-            fetch(form.action, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            })
-            .then(response => {
-                if (response.ok) {
-                    form.style.display = 'none'; // Oculta el formulario
-                    successMessage.style.display = 'block'; // Muestra el mensaje de gracias
-                } else {
-                    alert("Hubo un error al enviar. Por favor, intenta de nuevo o escríbenos al WhatsApp.");
-                    submitBtn.innerText = "Enviar Mensaje";
-                    submitBtn.disabled = false;
-                }
-            })
-            .catch(error => {
-                alert("Error de conexión. Revisa tu internet.");
-                submitBtn.innerText = "Enviar Mensaje";
-                submitBtn.disabled = false;
-            });
-        };
-    </script>
+  <!-- BOTÓN FLOTANTE DE WHATSAPP -->
+  <a href="https://wa.me/56971995226?text=Hola%20lituSolar,%20quisiera%20cotizar%20un%20kit%20solar." class="whatsapp-float" target="_blank" rel="noopener noreferrer" title="Contactar por WhatsApp">
+    💬 WhatsApp
+  </a>
+
+  <script src="js/script.js"></script>
 </body>
 </html>

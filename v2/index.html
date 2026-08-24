@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>lituSolar v2 | Energía Solar Inteligente</title>
+  <meta name="description" content="Kits solares fotovoltaicos híbridos y baterías de litio Felicitysolar en Chile. Soluciones residenciales y comerciales con instalación incluida.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="../images/logo.png" type="image/png">
+</head>
+<body>
+
+  <!-- 1. INTRO SOLAR EN MOVIMIENTO (Splash Screen) -->
+  <div id="solar-intro-overlay">
+    <div class="intro-content">
+      <div class="solar-aura-ring"></div>
+      <img src="../images/logo.png" alt="lituSolar" class="intro-logo">
+      <div class="intro-text">
+        <span class="intro-tagline">ENERGÍA SOLAR INTELIGENTE</span>
+        <div class="intro-loader-bar">
+          <div class="intro-loader-progress"></div>
+        </div>
+      </div>
+    </div>
+    <button id="skip-intro" class="skip-btn">Saltar Intro &rarr;</button>
+  </div>
+
+  <!-- 2. HEADER Y NAVEGACIÓN -->
+  <header>
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <img src="../images/logo.png" alt="lituSolar Logo">
+      </a>
+      <div class="menu-toggle">☰</div>
+      <nav class="nav-links">
+        <a href="index.html" class="active">Inicio</a>
+        <a href="#calculadora">Calculadora</a>
+        <a href="#catalogo">Catálogo</a>
+        <a href="../nosotros.html">Nosotros</a>
+        <a href="../contacto.html">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 3. HERO CON ENTRADA DINÁMICA Y CALCULADORA EN VIVO -->
+  <section id="hero">
+    <div class="container hero-container">
+      
+      <!-- Columna Izquierda: Mensaje Comercial -->
+      <div class="hero-text">
+        <div class="hero-badge">
+          <span>☀️ Partner Oficial Felicitysolar en Chile</span>
+        </div>
+        <h1>Energía Solar Inteligente para un <span class="gradient-orange">Futuro Sostenible</span></h1>
+        <p>Reduce hasta un 90% en tu cuenta de luz con inversores híbridos MPPT, baterías de litio de alta durabilidad y paneles solares bifaciales con instalación incluida.</p>
+        
+        <div class="hero-actions">
+          <a href="#catalogo" class="btn btn-primary">Ver Catálogo de Kits &rarr;</a>
+          <a href="../contacto.html" class="btn btn-secondary">Pedir Asesoría Gratis</a>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat-item">
+            <h4>90%</h4>
+            <p>Ahorro en cuenta de luz</p>
+          </div>
+          <div class="stat-item">
+            <h4>10 Años</h4>
+            <p>Garantía de Baterías</p>
+          </div>
+          <div class="stat-item">
+            <h4>100%</h4>
+            <p>Instalación Incluida</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Columna Derecha: Calculadora Solar Interactiva -->
+      <div class="calculator-card" id="calculadora">
+        <h3>Calcula tu <span class="gradient-orange">Ahorro Solar</span></h3>
+        <p class="text-gray" style="font-size: 0.9rem; margin-top: 4px;">Desliza según tu gasto mensual de electricidad:</p>
+
+        <div class="calc-slider-group">
+          <label>
+            <span>Tu cuenta mensual actual:</span>
+            <span id="bill-amount" class="text-orange" style="font-size: 1.3rem; font-weight: 800;">$100.000</span>
+          </label>
+          <input type="range" id="bill-slider" class="calc-slider" min="30000" max="350000" step="10000" value="100000">
+        </div>
+
+        <div class="calc-result-box">
+          <p class="text-gray" style="font-size: 0.8rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Tu Ahorro Estimado Anual</p>
+          <div id="annual-savings" class="savings-amount">$1.020.000</div>
+          <div id="suggested-kit" class="kit-suggested">Sugerido: Kit Solar 6000W Plus</div>
+        </div>
+
+        <a id="calc-whatsapp-btn" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block">
+          💬 Cotizar este Kit por WhatsApp
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 4. CATÁLOGO DINÁMICO CONECTADO AL CONTROL MAESTRO -->
+  <section id="catalogo" class="container" style="padding: 90px 24px;">
+    <div style="text-align: center; max-width: 700px; margin: 0 auto 50px auto;">
+      <h2 style="font-size: 2.6rem; margin-bottom: 12px;">Nuestras Soluciones <span class="gradient-orange">Solares</span></h2>
+      <p class="text-gray" style="font-size: 1.05rem;">Soluciones fotovoltaicas completas ordenadas por escala de potencia e inversión con instalación incluida.</p>
+    </div>
+
+    <!-- Grilla Dinámica -->
+    <div id="catalogo-container" class="product-grid">
+      <p class="text-gray" style="grid-column: 1/-1; text-align: center; padding: 40px;">Cargando soluciones solares de lituSolar...</p>
+    </div>
+  </section>
+
+  <!-- 5. FOOTER -->
+  <footer>
+    <div class="container footer-container">
+      <div class="footer-section">
+        <img src="../images/logo.png" alt="lituSolar" style="height: 45px; margin-bottom: 15px; filter: brightness(0) invert(1);">
+        <p>Energía Solar Inteligente para un futuro nacional sustentable.</p>
+      </div>
+      <div class="footer-section">
+        <h3>Menú</h3>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="#catalogo">Catálogo</a></li>
+          <li><a href="../proyectos.html">Proyectos</a></li>
+          <li><a href="../contacto.html">Contacto</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Contacto</h3>
+        <p>info@litusolar.cl</p>
+        <p>+56 9 7199 5226</p>
+        <p>Litueche / Región Metropolitana</p>
+      </div>
+      <div class="footer-section">
+        <h3>Garantía</h3>
+        <p>Distribuidor y Partner Oficial Felicitysolar en Chile.</p>
+      </div>
+    </div>
+    <div class="copy-text">
+      &copy; 2026 lituSolar. Todos los derechos reservados.
+    </div>
+  </footer>
+
+  <!-- 6. BOTÓN FLOTANTE DE WHATSAPP -->
+  <a href="https://wa.me/56971995226?text=Hola%20lituSolar,%20quisiera%20cotizar%20un%20kit%20solar." class="whatsapp-float" target="_blank" rel="noopener noreferrer" title="Contactar por WhatsApp">
+    💬 WhatsApp
+  </a>
+
+  <script src="script.js"></script>
+</body>
+</html>
