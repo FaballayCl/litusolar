@@ -1,92 +1,179 @@
-
+<!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nosotros | lituSolar</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nosotros | lituSolar Chile - Energía Solar Inteligente</title>
+  <meta name="description" content="Conoce la historia, valores y equipo de lituSolar. Empresa familiar chilena partner y distribuidora oficial de Felicitysolar en Chile.">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="images/logo.png" type="image/png">
 </head>
 <body>
 
-    <header>
-        <div class="container nav-container">
-            <div class="logo">
-                <a href="index.html">
-                    <img src="images/logo.png" alt="Logo de lituSolar">
-                </a>
-            </div>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="index.html">Inicio</a></li>
-                    <li><a href="nosotros.html" class="active">Nosotros</a></li>
-                    <li><a href="catalogo.html">Catálogo</a></li>
-                    <li><a href="proyectos.html">Proyectos</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="contacto.html">Contacto</a></li>
-                </ul>
-            </nav>
-            <i class="fas fa-bars menu-toggle"></i>
-        </div>
-    </header>
+  <!-- 1. HEADER Y NAVEGACIÓN -->
+  <header>
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <img src="images/logo.png" alt="lituSolar Logo">
+      </a>
+      <div class="menu-toggle">☰</div>
+      <nav class="nav-links">
+        <a href="index.html">Inicio</a>
+        <a href="catalogo.html">Catálogo</a>
+        <a href="nosotros.html" class="active">Nosotros</a>
+        <a href="contacto.html">Contacto</a>
+      </nav>
+    </div>
+  </header>
 
-    <section class="page-hero" style="background-color: #f3f4f6; padding: 60px 0; text-align: center; border-bottom: 1px solid #e5e7eb;">
-        <div class="container">
-            <h1 style="font-size: 3rem; margin-bottom: 10px;">Conoce <span class="text-orange">lituSolar</span></h1>
-            <p style="color: #6B7280; font-size: 1.2rem; max-width: 600px; margin: 0 auto;">Energía confiable, raíces familiares y un compromiso inquebrantable con el futuro nacional.</p>
-        </div>
+  <!-- 2. HERO DE SECCIÓN NOSOTROS -->
+  <main class="page-content" style="padding-top: 140px;">
+    <section class="container" style="text-align: center; max-width: 800px; margin-bottom: 60px;">
+      <div class="hero-badge">
+        <span>🌱 Empresa Familiar Chilena · Compromiso & Energía</span>
+      </div>
+      <h1 style="font-size: 3.2rem; margin-bottom: 18px;">Conoce la Esencia de <span class="gradient-orange">lituSolar</span></h1>
+      <p class="text-gray" style="font-size: 1.15rem;">
+        Energía confiable, raíces familiares y un compromiso inquebrantable con el ahorro real y el desarrollo sustentable en todo Chile.
+      </p>
     </section>
 
-    <main class="container page-content" style="padding: 60px 0;">
+    <!-- 3. NUESTRA HISTORIA Y EQUIPO (2 COLUMNAS) -->
+    <section class="container" style="margin-bottom: 90px;">
+      <div class="hero-container" style="align-items: center; gap: 60px;">
         
-        <section class="quienes-somos" style="display: flex; gap: 40px; align-items: center; margin-bottom: 60px;">
-            <div class="texto" style="flex: 1;">
-                <h2 style="margin-top: 0;">Nuestra Esencia</h2>
-                <p>Somos una <strong>empresa familiar</strong> comprometida con entregar soluciones energéticas eficientes y sustentables. Nacimos desde el esfuerzo, la dedicación y el trabajo en equipo, valores que siguen guiando cada uno de nuestros proyectos.</p>
-                <p>Trabajamos con cercanía, responsabilidad y compromiso, porque más que instalar sistemas solares, buscamos construir relaciones de confianza a largo plazo.</p>
+        <!-- Columna Izquierda: Imagen del Equipo -->
+        <div style="position: relative;">
+          <div style="background: var(--white); padding: 16px; border-radius: var(--radius-lg); box-shadow: var(--shadow-md); border: 1px solid #E2E8F0;">
+            <img src="images/nosotros-equipo.png" alt="Equipo lituSolar" style="border-radius: var(--radius-md); width: 100%; object-fit: cover;" onerror="this.src='images/logo.png'">
+          </div>
+          <div style="position: absolute; bottom: -20px; right: 20px; background: var(--dark-bg); color: var(--white); padding: 14px 24px; border-radius: var(--radius-md); box-shadow: var(--shadow-glow); border: 1px solid rgba(243, 129, 32, 0.4); display: flex; align-items: center; gap: 12px;">
+            <span style="font-size: 1.6rem;">☀️</span>
+            <div>
+              <div style="font-weight: 800; font-size: 0.95rem; color: var(--primary-orange);">Partner Oficial</div>
+              <div style="font-size: 0.8rem; color: #94A3B8;">Felicitysolar Chile</div>
             </div>
-            <div class="imagen card-style" style="flex: 1; padding: 0; overflow: hidden; height: 300px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
-                <img src="images/nosotros-equipo.jpg" alt="Instalación de paneles solares familiar en Chile" style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-        </section>
-
-        <section class="alianza card-style" style="background-color: #1F2937; color: white; text-align: center; margin-bottom: 60px; padding: 40px; border-radius: 12px;">
-            <i class="fas fa-solar-panel text-orange" style="font-size: 3rem; margin-bottom: 20px;"></i>
-            <h2 style="color: white; margin-top: 0;">Respaldo Nacional</h2>
-            <p style="max-width: 700px; margin: 0 auto; color: #D1D5DB;">Como empresa chilena, somos partner y distribuidores oficiales a nivel nacional de <strong>Felicitysolar</strong>, lo que nos permite ofrecer productos de alta calidad, respaldo técnico y soluciones confiables para cada cliente.</p>
-        </section>
-
-        <section class="mision-vision">
-            <div class="beneficios-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px;">
-                <div class="beneficio-card card-style" style="background: white; padding: 30px; border-radius: 12px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
-                    <i class="fas fa-hand-holding-usd text-green" style="font-size: 2.5rem; margin-bottom: 15px; display: block;"></i>
-                    <h3 style="color: #0E2B5C; margin-top: 0;">Qué Hacemos</h3>
-                    <p>Nos especializamos en el rubro de los paneles solares, ayudando a hogares y empresas a aprovechar la energía del sol de manera responsable y económica.</p>
-                </div>
-                <div class="beneficio-card card-style" style="background: white; padding: 30px; border-radius: 12px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
-                    <i class="fas fa-seedling text-green" style="font-size: 2.5rem; margin-bottom: 15px; display: block;"></i>
-                    <h3 style="color: #0E2B5C; margin-top: 0;">Nuestro Horizonte</h3>
-                    <p>Creemos en un futuro más limpio y en el uso de energías renovables como una inversión inteligente para las próximas generaciones.</p>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <footer>
-        <div class="container footer-container">
-            <div class="footer-section">
-                <h3>lituSolar</h3>
-                <p>Energía Solar Inteligente para un futuro nacional sustentable.</p>
-            </div>
-            <div class="footer-section">
-                <h3>Contacto</h3>
-                <p>info@litusolar.cl</p>
-                <p>+56 9 7199 5226</p>
-            </div>
+          </div>
         </div>
-    </footer>
 
-    <script src="js/script.js"></script>
+        <!-- Columna Derecha: Texto y Enfoque -->
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+          <h2 style="font-size: 2.3rem;">Más que instalar paneles, construimos <span class="gradient-green">confianza</span></h2>
+          
+          <p class="text-gray" style="font-size: 1.05rem;">
+            En <strong>lituSolar</strong> nacimos desde el esfuerzo, la dedicación y el trabajo técnico riguroso. Sabemos que la transición a la energía solar es una inversión importante para tu hogar o empresa, y por eso brindamos un acompañamiento cercano y honesto de principio a fin.
+          </p>
+
+          <p class="text-gray" style="font-size: 1.05rem;">
+            Nos especializamos en el diseño, provisión y montaje de <strong>sistemas fotovoltaicos híbridos On-Grid y Off-Grid</strong>, utilizando tecnología de almacenamiento en litio de última generación para garantizar que nunca te falte energía.
+          </p>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 10px;">
+            <div style="background: var(--white); padding: 16px; border-radius: var(--radius-sm); border-left: 4px solid var(--primary-orange); box-shadow: var(--shadow-sm);">
+              <h4 style="font-size: 1.1rem; margin-bottom: 4px;">Atención en Terreno</h4>
+              <p class="text-gray" style="font-size: 0.88rem;">Litueche, O'Higgins y Región Metropolitana.</p>
+            </div>
+
+            <div style="background: var(--white); padding: 16px; border-radius: var(--radius-sm); border-left: 4px solid var(--primary-green); box-shadow: var(--shadow-sm);">
+              <h4 style="font-size: 1.1rem; margin-bottom: 4px;">Garantía Real</h4>
+              <p class="text-gray" style="font-size: 0.88rem;">Respaldo técnico directo de fábrica.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 4. PILARES DE TRABAJO (4 TARJETAS) -->
+    <section class="container" style="margin-bottom: 100px;">
+      <div style="text-align: center; max-width: 650px; margin: 0 auto 50px auto;">
+        <h2 style="font-size: 2.4rem; margin-bottom: 12px;">Nuestros Pilares de <span class="gradient-orange">Excelencia</span></h2>
+        <p class="text-gray">Lo que nos diferencia en cada instalación y proyecto solar.</p>
+      </div>
+
+      <div class="product-grid" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));">
+        
+        <div class="product-card" style="padding: 32px 24px;">
+          <div style="font-size: 2.5rem; margin-bottom: 16px;">⚡</div>
+          <h3>Tecnología de Vanguardia</h3>
+          <p class="desc">Inversores híbridos MPPT inteligentes y paneles solares bifaciales de 620W que maximizan la captación incluso en días nublados.</p>
+        </div>
+
+        <div class="product-card" style="padding: 32px 24px;">
+          <div style="font-size: 2.5rem; margin-bottom: 16px;">🔋</div>
+          <h3>Baterías de Litio LiFePO4</h3>
+          <p class="desc">Almacenamiento seguro, compacto y de larga vida útil (más de 6.000 ciclos) con respaldo oficial de Felicitysolar.</p>
+        </div>
+
+        <div class="product-card" style="padding: 32px 24px;">
+          <div style="font-size: 2.5rem; margin-bottom: 16px;">🛠️</div>
+          <h3>Instalación Llave en Mano</h3>
+          <p class="desc">Nos encargamos de todo: estructura monoposte o coplanar, rieles de aluminio reforzado, cableado solar y protecciones eléctricas.</p>
+        </div>
+
+        <div class="product-card" style="padding: 32px 24px;">
+          <div style="font-size: 2.5rem; margin-bottom: 16px;">🤝</div>
+          <h3>Asesoría Directa y Transparente</h3>
+          <p class="desc">Calculamos exactamente la potencia que necesitas según tu consumo real, sin sobrecostos ni equipos innecesarios.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 5. BANNER LLAMADO A LA ACCIÓN (CTA) -->
+    <section class="container">
+      <div style="background: var(--dark-gradient); color: var(--white); border-radius: var(--radius-lg); padding: 60px 40px; text-align: center; position: relative; overflow: hidden; box-shadow: var(--shadow-glow);">
+        <h2 style="color: var(--white); font-size: 2.6rem; margin-bottom: 16px;">¿Listo para independizarte de las alzas en la luz?</h2>
+        <p style="color: #94A3B8; font-size: 1.15rem; max-width: 600px; margin: 0 auto 30px auto;">
+          Conversemos hoy mismo sobre tu proyecto solar para tu hogar, parcela o empresa con instalación incluida.
+        </p>
+        <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
+          <a href="catalogo.html" class="btn btn-primary">Explorar Kits Solares &rarr;</a>
+          <a href="https://wa.me/56971995226?text=Hola%20lituSolar,%20quisiera%20asesorarme%20para%20un%20proyecto%20solar." target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            💬 Hablar por WhatsApp
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 6. FOOTER -->
+  <footer>
+    <div class="container footer-container">
+      <div class="footer-section">
+        <img src="images/logo.png" alt="lituSolar" style="height: 45px; margin-bottom: 15px; filter: brightness(0) invert(1);">
+        <p>Energía Solar Inteligente para un futuro nacional sustentable.</p>
+      </div>
+      <div class="footer-section">
+        <h3>Menú</h3>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="catalogo.html">Catálogo</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Contacto</h3>
+        <p>info@litusolar.cl</p>
+        <p>+56 9 7199 5226</p>
+        <p>Litueche / Región Metropolitana</p>
+      </div>
+      <div class="footer-section">
+        <h3>Garantía</h3>
+        <p>Distribuidor y Partner Oficial Felicitysolar en Chile.</p>
+      </div>
+    </div>
+    <div class="copy-text">
+      &copy; 2026 lituSolar. Todos los derechos reservados.
+    </div>
+  </footer>
+
+  <!-- 7. BOTÓN FLOTANTE WHATSAPP -->
+  <a href="https://wa.me/56971995226?text=Hola%20lituSolar,%20quisiera%20asesorarme%20sobre%20sus%20proyectos%20solares." class="whatsapp-float" target="_blank" rel="noopener noreferrer" title="Contactar por WhatsApp">
+    💬 WhatsApp
+  </a>
+
+  <script src="js/script.js"></script>
 </body>
 </html>
