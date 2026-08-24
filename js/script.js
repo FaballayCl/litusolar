@@ -1,25 +1,96 @@
 /**
- * lituSolar v2 - Frontend Script Interactivo
- * Splash Intro + Calculadora Solar en Vivo + API Google con Auto-detector de fotos
+ * lituSolar v2 - Frontend Script con Carga Instantánea (0s)
+ * Caché en memoria + Sincronización en segundo plano con Google Sheets
  */
 
 document.addEventListener('DOMContentLoaded', () => {
   const GOOGLE_API_URL = 'https://script.google.com/macros/s/AKfycbx7EBNs0BdbiorxaLnqtI7--gr_e7fNnBDoZxiO6WQE6vPwW1WORu3hu0LrcBy9-Rfy/exec';
 
-  // --- 1. CONTROL DE LA INTRO ANIMADA (Splash Screen) ---
+  // Catálogo inicial precargado en memoria (Permite renderizado en 0 milisegundos)
+  const INITIAL_PRODUCTS = [
+    {
+      id: "KIT-4000W-INI",
+      nombre: "Tu Primer Kit Solar 4kW",
+      precio: 1750000,
+      potencia_total: "4000W",
+      descripcion_corta: "Inversor 4kW, batería 2.5kW 100A y 3 paneles de 620W. Súper oferta inicial.",
+      imagen_url: "images/primer-kit-4000w.jpg"
+    },
+    {
+      id: "BAT-FEL-14",
+      nombre: "Batería Litio Felicity 14.3 kWh",
+      precio: 2000000,
+      potencia_total: "14.3 kWh",
+      descripcion_corta: "Batería LiFePO4 de alta eficiencia (51.3V | 280Ah) para respaldo total.",
+      imagen_url: "images/bateria-felicity.jpg"
+    },
+    {
+      id: "KIT-6000W-B",
+      nombre: "Kit Solar 6000W Básico",
+      precio: 2700000,
+      potencia_total: "6000W",
+      descripcion_corta: "Inversor 6kW, batería litio 5kW y 6 paneles bifaciales de 620W.",
+      imagen_url: "images/kit-6000w-basico.jpg"
+    },
+    {
+      id: "KIT-6000W-I",
+      nombre: "Kit Solar 6000W Plus",
+      precio: 3000000,
+      potencia_total: "6000W",
+      descripcion_corta: "Mayor captación con 8 paneles bifaciales de 620W y batería 5kW.",
+      imagen_url: "images/kit-6000w-intermedio.jpg"
+    },
+    {
+      id: "KIT-6000W-P",
+      nombre: "Kit Solar 6000W Premium",
+      precio: 3700000,
+      potencia_total: "6000W",
+      descripcion_corta: "Autonomía superior con batería de 8.75kW y 8 paneles bifaciales.",
+      imagen_url: "images/kit-6000w-premium.jpg"
+    },
+    {
+      id: "KIT-8000W-8B",
+      nombre: "Kit Solar 8000W (Batería 8.75kW)",
+      precio: 5000000,
+      potencia_total: "8000W",
+      descripcion_corta: "Inversor 8kW, 12 paneles de 620W y batería de litio 8.75kW.",
+      imagen_url: "images/kit-8000w-8bateria.jpg"
+    },
+    {
+      id: "KIT-8000W-14B-12P",
+      nombre: "Kit Solar 8000W Plus (Batería 14.3kW)",
+      precio: 6100000,
+      potencia_total: "8000W",
+      descripcion_corta: "Inversor 8kW, 12 paneles de 620W y batería de litio 14.3kWh.",
+      imagen_url: "images/kit-8000w-14bateria.jpg"
+    },
+    {
+      id: "KIT-8000W-14B-16P",
+      nombre: "Kit Solar 8000W Master Pro (16 Paneles)",
+      precio: 6800000,
+      potencia_total: "8000W",
+      descripcion_corta: "Máxima potencia con 16 paneles de 620W y batería de litio 14.3kWh.",
+      imagen_url: "images/kit-8000w-16paneles.jpg"
+    },
+    {
+      id: "EST-MONOPOSTE",
+      nombre: "Estructura Monoposte para Paneles Solares",
+      precio: 0,
+      potencia_total: "Soporte 8 / 16 paneles",
+      descripcion_corta: "Estructura resistente para 8 o 16 paneles con inclinación óptima.",
+      imagen_url: "images/estructura-monoposte.jpg"
+    }
+  ];
+
+  // --- 1. INTRO ANIMADA (Splash Screen) ---
   const introOverlay = document.getElementById('solar-intro-overlay');
   const skipBtn = document.getElementById('skip-intro');
-
   if (introOverlay) {
     const hideIntro = () => {
       introOverlay.classList.add('fade-out');
-      setTimeout(() => {
-        introOverlay.style.display = 'none';
-      }, 800);
+      setTimeout(() => introOverlay.style.display = 'none', 800);
     };
-
-    const introTimer = setTimeout(hideIntro, 2200);
-
+    const introTimer = setTimeout(hideIntro, 2000);
     if (skipBtn) {
       skipBtn.addEventListener('click', () => {
         clearTimeout(introTimer);
@@ -48,48 +119,63 @@ document.addEventListener('DOMContentLoaded', () => {
     return div.innerHTML;
   };
 
-  // --- 4. CARGA DINÁMICA DEL CATÁLOGO DESDE GOOGLE APPS SCRIPT ---
+  // --- 4. RENDERIZADO INSTANTÁNEO DE PRODUCTOS ---
   const catalogoContainer = document.getElementById('catalogo-container');
+
+  const renderProducts = (productos) => {
+    if (!catalogoContainer || !productos || productos.length === 0) return;
+    catalogoContainer.innerHTML = '';
+
+    productos.forEach(prod => {
+      const card = document.createElement('div');
+      card.className = 'product-card';
+
+      const nombre = escapeHTML(prod.nombre);
+      const precio = formatCLP(prod.precio);
+      const desc = escapeHTML(prod.descripcion_corta);
+      const imgPath = escapeHTML(prod.imagen_url);
+      const whatsappUrl = `https://wa.me/56971995226?text=${encodeURIComponent(`Hola lituSolar, me interesa cotizar el "${prod.nombre}" (${prod.potencia_total || ''}).`)}`;
+
+      card.innerHTML = `
+        <img src="${imgPath}" alt="${nombre}" loading="lazy" decoding="async"
+             onerror="if (this.src.endsWith('.jpg')) { this.src = this.src.replace('.jpg', '.jpeg'); } else if (this.src.endsWith('.jpeg')) { this.src = this.src.replace('.jpeg', '.png'); } else { this.src = 'images/logo.png'; }">
+        <h3>${nombre}</h3>
+        <p class="price">${precio}</p>
+        <p class="desc">${desc}</p>
+        <a href="${whatsappUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-block">
+          ⚡ Me interesa
+        </a>
+      `;
+      catalogoContainer.appendChild(card);
+    });
+  };
+
+  // A. Pinta el catálogo en 0 milisegundos desde memoria / caché local
+  const cachedData = localStorage.getItem('litusolar_products_cache');
+  if (cachedData) {
+    try {
+      renderProducts(JSON.parse(cachedData));
+    } catch (e) {
+      renderProducts(INITIAL_PRODUCTS);
+    }
+  } else {
+    renderProducts(INITIAL_PRODUCTS);
+  }
+
+  // B. Sincroniza silenciosamente en segundo plano con Google Sheets
   if (catalogoContainer) {
     fetch(`${GOOGLE_API_URL}?action=getProducts`)
       .then(res => res.json())
       .then(response => {
-        if (!response.success || !response.data || response.data.length === 0) {
-          catalogoContainer.innerHTML = '<p class="text-gray" style="grid-column: 1/-1; text-align: center; padding: 40px;">No hay kits disponibles por el momento.</p>';
-          return;
+        if (response.success && response.data && response.data.length > 0) {
+          localStorage.setItem('litusolar_products_cache', JSON.stringify(response.data));
+          renderProducts(response.data);
         }
-
-        catalogoContainer.innerHTML = '';
-        response.data.forEach(prod => {
-          const card = document.createElement('div');
-          card.className = 'product-card';
-
-          const nombre = escapeHTML(prod.nombre);
-          const precio = formatCLP(prod.precio);
-          const desc = escapeHTML(prod.descripcion_corta);
-          const imgPath = escapeHTML(prod.imagen_url);
-          const whatsappUrl = `https://wa.me/56971995226?text=${encodeURIComponent(`Hola lituSolar, me interesa cotizar el "${prod.nombre}" (${prod.potencia_total || ''}).`)}`;
-
-          card.innerHTML = `
-            <img src="${imgPath}" alt="${nombre}" loading="lazy" 
-                 onerror="if (this.src.endsWith('.jpg')) { this.src = this.src.replace('.jpg', '.jpeg'); } else if (this.src.endsWith('.jpeg')) { this.src = this.src.replace('.jpeg', '.png'); } else { this.src = 'images/logo.png'; }">
-            <h3>${nombre}</h3>
-            <p class="price">${precio}</p>
-            <p class="desc">${desc}</p>
-            <a href="${whatsappUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-block">
-              ⚡ Me interesa
-            </a>
-          `;
-          catalogoContainer.appendChild(card);
-        });
       })
-      .catch(err => {
-        console.error('Error al cargar catálogo:', err);
-        catalogoContainer.innerHTML = '<p class="error-text" style="grid-column: 1/-1; text-align: center; padding: 40px;">Error al conectar con el catálogo en línea.</p>';
-      });
+      .catch(err => console.log('Aviso: Utilizando catálogo precargado offline/rápido.'));
   }
 
-  // --- 5. CALCULADORA SOLAR INTERACTIVA EN VIVO ---
+  // --- 5. CALCULADORA SOLAR INTERACTIVA EN TIEMPO REAL ---
   const billSlider = document.getElementById('bill-slider');
   const billAmountDisplay = document.getElementById('bill-amount');
   const annualSavingsDisplay = document.getElementById('annual-savings');
@@ -101,20 +187,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const billValue = Number(billSlider.value);
       billAmountDisplay.textContent = formatCLP(billValue);
 
-      // Estimación del 85% de ahorro promedio anual
       const annualSavings = Math.round(billValue * 12 * 0.85);
       annualSavingsDisplay.textContent = formatCLP(annualSavings);
 
       let kitName = 'Tu Primer Kit Solar 4kW';
-      if (billValue >= 180000) {
-        kitName = 'Kit Solar 8000W Master Pro (16 Paneles)';
-      } else if (billValue >= 130000) {
-        kitName = 'Kit Solar 8000W (Batería 8.75kW)';
-      } else if (billValue >= 80000) {
-        kitName = 'Kit Solar 6000W Plus (8 Paneles)';
-      } else if (billValue >= 50000) {
-        kitName = 'Kit Solar 6000W Básico';
-      }
+      if (billValue >= 180000) kitName = 'Kit Solar 8000W Master Pro (16 Paneles)';
+      else if (billValue >= 130000) kitName = 'Kit Solar 8000W (Batería 8.75kW)';
+      else if (billValue >= 80000) kitName = 'Kit Solar 6000W Plus (8 Paneles)';
+      else if (billValue >= 50000) kitName = 'Kit Solar 6000W Básico';
 
       suggestedKitDisplay.textContent = `Sugerido: ${kitName}`;
 
