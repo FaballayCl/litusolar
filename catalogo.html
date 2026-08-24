@@ -1,64 +1,85 @@
+<!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo | lituSolar</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo de Kits Solares | lituSolar Chile</title>
+  <meta name="description" content="Kits solares fotovoltaicos híbridos y baterías de litio Felicitysolar en Chile. Soluciones residenciales y comerciales de 4kW, 6kW y 8kW con instalación incluida.">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="images/logo.png" type="image/png">
 </head>
 <body>
 
-    <header>
-        <div class="container nav-container">
-            <div class="logo">
-                <a href="index.html">
-                    <img src="images/logo.png" alt="Logo de lituSolar">
-                </a>
-            </div>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="index.html">Inicio</a></li>
-                    <li><a href="nosotros.html">Nosotros</a></li>
-                    <li><a href="catalogo.html" class="active">Catálogo</a></li>
-                    <li><a href="proyectos.html">Proyectos</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="contacto.html">Contacto</a></li>
-                </ul>
-            </nav>
-            <i class="fas fa-bars menu-toggle"></i>
-        </div>
-    </header>
+  <!-- HEADER -->
+  <header>
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <img src="images/logo.png" alt="lituSolar Logo">
+      </a>
+      <div class="menu-toggle">☰</div>
+      <nav class="nav-links">
+        <a href="index.html">Inicio</a>
+        <a href="nosotros.html">Nosotros</a>
+        <a href="catalogo.html" class="active">Catálogo</a>
+        <a href="proyectos.html">Proyectos</a>
+        <a href="blog.html">Blog</a>
+        <a href="contacto.html">Contacto</a>
+      </nav>
+    </div>
+  </header>
 
-    <main class="container page-content">
-        <h1>Nuestro Catálogo de <span class="text-green">Soluciones</span></h1>
-        <p style="text-align: center; color: #6B7280; margin-bottom: 40px;">Explora nuestras soluciones solares de última generación diseñadas para tu máximo ahorro.</p>
-        
-        <div id="catalogo-container" class="product-grid">
-            </div>
-    </main>
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="container page-content">
+    <h1>Nuestro Catálogo de <span class="text-green">Soluciones</span></h1>
+    <p style="text-align: center; color: #6B7280; max-width: 700px; margin: 0 auto 50px auto;">
+      Explora nuestras soluciones solares de última generación con inversores MPPT, baterías de litio Felicitysolar y paneles bifaciales de alta eficiencia con instalación incluida.
+    </p>
 
-    <footer>
-        <div class="container footer-container">
-            <div class="footer-section">
-                <h3>lituSolar</h3>
-                <p>Energía Solar Inteligente para un futuro sostenible. Más eficiente, más seguro.</p>
-            </div>
-            <div class="footer-section">
-                <h3>Menú</h3>
-                <ul>
-                    <li><a href="nosotros.html">Nosotros</a></li>
-                    <li><a href="catalogo.html">Catálogo</a></li>
-                    <li><a href="contacto.html">Contacto</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Contacto</h3>
-                <p>info@litusolar.cl</p>
-                <p>+56 9 7199 5226</p>
-            </div>
-        </div>
-    </footer>
+    <!-- Grilla Dinámica Conectada a Google Sheets -->
+    <div id="catalogo-container" class="product-grid">
+      <p class="text-gray" style="grid-column: 1/-1; text-align: center; padding: 40px 0;">
+        Cargando soluciones solares oficiales de lituSolar...
+      </p>
+    </div>
+  </main>
 
-    <script src="js/script.js"></script>
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-container">
+      <div class="footer-section">
+        <img src="images/logo.png" alt="lituSolar" style="height: 45px; margin-bottom: 15px; filter: brightness(0) invert(1);">
+        <p>Energía Solar Inteligente para un futuro nacional sustentable.</p>
+      </div>
+      <div class="footer-section">
+        <h3>Menú</h3>
+        <ul>
+          <li><a href="nosotros.html">Nosotros</a></li>
+          <li><a href="catalogo.html">Catálogo</a></li>
+          <li><a href="proyectos.html">Proyectos</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Contacto</h3>
+        <p>info@litusolar.cl</p>
+        <p>+56 9 7199 5226</p>
+        <p>Litueche / Región Metropolitana</p>
+      </div>
+      <div class="footer-section">
+        <h3>Garantía</h3>
+        <p>Distribuidor y Partner Oficial Felicitysolar en Chile.</p>
+      </div>
+    </div>
+    <div class="copy-text">
+      &copy; 2026 lituSolar. Todos los derechos reservados.
+    </div>
+  </footer>
+
+  <!-- BOTÓN FLOTANTE WHATSAPP -->
+  <a href="https://wa.me/56971995226?text=Hola%20lituSolar,%20quisiera%20cotizar%20un%20kit%20solar." class="whatsapp-btn" target="_blank" rel="noopener noreferrer" title="Contactar por WhatsApp">
+    💬
+  </a>
+
+  <script src="js/script.js"></script>
 </body>
 </html>
