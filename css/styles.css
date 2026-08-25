@@ -1,6 +1,6 @@
 /* ==========================================================================
-   lituSolar v2.4 - Modern Solar Tech CSS Global
-   Calculadora de Ingeniería Exacta, Pestañas, Modales y Estética Premium
+   lituSolar v2.5 - Modern Solar Tech CSS Global
+   Calculadora Multi-Modo con Controles de Cantidad (+/-) y Entrada de Watts
    ========================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@600;700;800;900&display=swap');
@@ -377,11 +377,11 @@ header {
   color: var(--text-muted);
 }
 
-/* --- 4. CALCULADORA DE INGENIERÍA SOLAR EXACTA (MODO DUAL) --- */
+/* --- 4. CALCULADORA MULTI-MODO DE INGENIERÍA --- */
 .calculator-card {
   background: var(--white);
   border-radius: var(--radius-lg);
-  padding: 30px 26px;
+  padding: 28px 24px;
   box-shadow: var(--shadow-md);
   border: 1px solid rgba(226, 232, 240, 0.9);
   position: relative;
@@ -404,20 +404,21 @@ header {
   padding: 4px;
   border-radius: var(--radius-sm);
   gap: 4px;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 }
 
 .calc-tab-btn {
   flex: 1;
-  padding: 8px 12px;
+  padding: 8px 8px;
   border: none;
   background: transparent;
   color: var(--text-muted);
   font-weight: 700;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   border-radius: 6px;
   cursor: pointer;
   transition: var(--transition);
+  text-align: center;
 }
 
 .calc-tab-btn.active {
@@ -426,22 +427,14 @@ header {
   box-shadow: 0 2px 6px rgba(0,0,0,0.06);
 }
 
-.calc-view {
-  display: none;
-}
+.calc-view { display: none; }
+.calc-view.active { display: block; }
 
-.calc-view.active {
-  display: block;
-}
-
-.calc-input-group {
-  margin-bottom: 14px;
-}
-
+.calc-input-group { margin-bottom: 14px; }
 .calc-input-group label {
   display: block;
   font-weight: 700;
-  font-size: 0.88rem;
+  font-size: 0.86rem;
   color: var(--text-main);
   margin-bottom: 6px;
 }
@@ -461,7 +454,7 @@ header {
 
 .calc-select-input {
   padding-left: 14px;
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   font-weight: 600;
 }
 
@@ -470,49 +463,94 @@ header {
   box-shadow: 0 0 0 3px rgba(243, 129, 32, 0.15);
 }
 
-.appliance-list {
+/* Lista de Artefactos Extendida con Cantidades (+ / -) */
+.appliance-list-v2 {
   display: flex;
   flex-direction: column;
   gap: 8px;
   margin-bottom: 14px;
-  max-height: 180px;
+  max-height: 200px;
   overflow-y: auto;
   padding-right: 4px;
 }
 
-.appliance-item {
+.appliance-row {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 10px;
   padding: 8px 12px;
   background: #F8FAFC;
   border: 1px solid #E2E8F0;
   border-radius: var(--radius-sm);
-  font-size: 0.88rem;
-  font-weight: 600;
-  color: var(--text-main);
-  cursor: pointer;
   transition: var(--transition);
 }
 
-.appliance-item:hover {
+.appliance-row.active {
+  background: #FFF7ED;
+  border-color: #FED7AA;
+}
+
+.appliance-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.appliance-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.appliance-sub {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* Control de Cantidades +/- */
+.qty-control {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.qty-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid #CBD5E1;
   background: #FFF;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text-main);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  user-select: none;
+}
+
+.qty-btn:hover {
+  background: var(--primary-orange);
+  color: #FFF;
   border-color: var(--primary-orange);
 }
 
-.appliance-check {
-  width: 18px;
-  height: 18px;
-  accent-color: var(--primary-orange);
-  cursor: pointer;
+.qty-display {
+  font-size: 0.95rem;
+  font-weight: 800;
+  width: 22px;
+  text-align: center;
+  color: var(--text-main);
 }
 
+/* Panel de Resultados */
 .calc-results-panel {
   background: #F8FAFC;
   border: 1px solid #E2E8F0;
   border-radius: var(--radius-md);
   padding: 16px;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 }
 
 .calc-metric-row {
@@ -525,7 +563,7 @@ header {
 
 .metric-label {
   display: block;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: var(--text-muted);
   font-weight: 600;
   text-transform: uppercase;
@@ -538,15 +576,10 @@ header {
   font-family: 'Outfit', sans-serif;
 }
 
-.suggested-kit-banner {
-  text-align: center;
-}
+.suggested-kit-banner { text-align: center; }
 
 /* --- 5. GRILLA DE PRODUCTOS CON VISOR LIGHTBOX --- */
-.page-content {
-  padding: 140px 0 80px 0;
-}
-
+.page-content { padding: 140px 0 80px 0; }
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -587,9 +620,7 @@ header {
   display: block;
 }
 
-.product-img-wrapper:hover .product-clickable-img {
-  transform: scale(1.05);
-}
+.product-img-wrapper:hover .product-clickable-img { transform: scale(1.05); }
 
 .expand-icon {
   position: absolute;
@@ -608,11 +639,7 @@ header {
   transform: translateY(5px);
 }
 
-.product-img-wrapper:hover .expand-icon {
-  opacity: 1;
-  transform: translateY(0);
-}
-
+.product-img-wrapper:hover .expand-icon { opacity: 1; transform: translateY(0); }
 .product-card h3 { font-size: 1.35rem; margin-bottom: 8px; }
 .product-card .price { font-size: 1.7rem; font-weight: 800; color: var(--primary-orange); font-family: 'Outfit', sans-serif; margin-bottom: 12px; }
 .product-card .desc { font-size: 0.92rem; color: var(--text-muted); margin-bottom: 24px; flex-grow: 1; }
@@ -635,83 +662,32 @@ header {
   transition: opacity 0.3s ease;
 }
 
-.lightbox-modal.active {
-  display: flex !important;
-  opacity: 1;
-  pointer-events: all;
-}
-
+.lightbox-modal.active { display: flex !important; opacity: 1; pointer-events: all; }
 .lightbox-img {
-  max-width: 90vw;
-  max-height: 85vh;
-  border-radius: var(--radius-md);
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
-  object-fit: contain;
-  transform: scale(0.92);
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  max-width: 90vw; max-height: 85vh; border-radius: var(--radius-md); box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+  object-fit: contain; transform: scale(0.92); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
-
-.lightbox-modal.active .lightbox-img {
-  transform: scale(1);
-}
-
+.lightbox-modal.active .lightbox-img { transform: scale(1); }
 .lightbox-close {
-  position: absolute;
-  top: 24px;
-  right: 32px;
-  font-size: 2.5rem;
-  color: var(--white);
-  cursor: pointer;
-  line-height: 1;
-  transition: transform 0.2s ease, color 0.2s ease;
-  user-select: none;
+  position: absolute; top: 24px; right: 32px; font-size: 2.5rem; color: var(--white);
+  cursor: pointer; line-height: 1; transition: transform 0.2s ease, color 0.2s ease; user-select: none;
 }
-
-.lightbox-close:hover {
-  transform: scale(1.2);
-  color: var(--primary-orange);
-}
+.lightbox-close:hover { transform: scale(1.2); color: var(--primary-orange); }
 
 /* --- 7. FOTOS ESTÁTICAS PARA NOSOTROS --- */
 .static-img-frame {
-  background: var(--white);
-  padding: 14px;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
-  border: 1px solid #E2E8F0;
-  overflow: hidden;
+  background: var(--white); padding: 14px; border-radius: var(--radius-lg); box-shadow: var(--shadow-md); border: 1px solid #E2E8F0; overflow: hidden;
 }
-
-.static-img {
-  width: 100%;
-  border-radius: var(--radius-md);
-  object-fit: cover;
-  display: block;
-}
+.static-img { width: 100%; border-radius: var(--radius-md); object-fit: cover; display: block; }
 
 /* --- 8. FORMULARIOS Y FOOTER --- */
 .contacto-wrapper {
-  max-width: 720px;
-  margin: 0 auto;
-  background: var(--white);
-  padding: 40px;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
-  border: 1px solid #E2E8F0;
+  max-width: 720px; margin: 0 auto; background: var(--white); padding: 40px; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid #E2E8F0;
 }
-
 .alert-success {
-  background-color: #D1FAE5;
-  color: #065F46;
-  padding: 16px;
-  border-radius: var(--radius-sm);
-  border: 1px solid #A7F3D0;
-  margin-bottom: 25px;
-  display: none;
-  font-weight: 600;
+  background-color: #D1FAE5; color: #065F46; padding: 16px; border-radius: var(--radius-sm); border: 1px solid #A7F3D0; margin-bottom: 25px; display: none; font-weight: 600;
 }
 .alert-success.active { display: block; }
-
 .form-group { margin-bottom: 22px; }
 .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--text-main); font-size: 0.95rem; }
 .form-group input, .form-group textarea {
@@ -721,28 +697,14 @@ header {
   outline: none; border-color: var(--primary-orange); box-shadow: 0 0 0 3px rgba(243, 129, 32, 0.15);
 }
 
-footer {
-  background: var(--dark-bg);
-  color: #E2E8F0;
-  padding: 80px 0 40px 0;
-  margin-top: 100px;
-}
-
-.footer-container {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 48px;
-}
-
+footer { background: var(--dark-bg); color: #E2E8F0; padding: 80px 0 40px 0; margin-top: 100px; }
+.footer-container { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; }
 .footer-section h3 { color: var(--primary-orange); font-size: 1.2rem; margin-bottom: 20px; }
 .footer-section p { color: #94A3B8; font-size: 0.95rem; margin-bottom: 10px; }
 .footer-section ul li { margin-bottom: 12px; }
 .footer-section ul li a { color: #94A3B8; }
 .footer-section ul li a:hover { color: var(--primary-orange); padding-left: 4px; }
-
-.copy-text {
-  text-align: center; margin-top: 60px; padding-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.08); color: #64748B; font-size: 0.88rem;
-}
+.copy-text { text-align: center; margin-top: 60px; padding-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.08); color: #64748B; font-size: 0.88rem; }
 
 .whatsapp-float {
   position: fixed; bottom: 30px; right: 30px; background: #25D366; color: #FFF; border-radius: 50px;
