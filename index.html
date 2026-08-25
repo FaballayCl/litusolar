@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>lituSolar | Energía Solar Inteligente Chile</title>
-  <meta name="description" content="Kits solares fotovoltaicos híbridos y baterías de litio Felicitysolar en Chile. Reduce hasta un 90% en tu cuenta de luz con instalación incluida.">
+  <meta name="description" content="Kits solares fotovoltaicos híbridos y baterías de litio Felicitysolar en Chile. Calcula tu consumo y ahorro exacto con instalación incluida.">
   <link rel="stylesheet" href="css/styles.css">
   <link rel="icon" href="images/logo.png" type="image/png">
 </head>
@@ -25,7 +25,7 @@
     <button id="skip-intro" class="skip-btn">Saltar Intro &rarr;</button>
   </div>
 
-  <!-- 2. HEADER Y NAVEGACIÓN LIMPIA -->
+  <!-- 2. HEADER Y NAVEGACIÓN -->
   <header>
     <div class="container nav-container">
       <a href="index.html" class="logo">
@@ -41,17 +41,17 @@
     </div>
   </header>
 
-  <!-- 3. HERO CON ENTRADA DINÁMICA Y CALCULADORA EN VIVO -->
+  <!-- 3. HERO CON CALCULADORA DE INGENIERÍA EXACTA -->
   <section id="hero">
     <div class="container hero-container">
       
-      <!-- Columna Izquierda: Mensaje Comercial -->
+      <!-- Columna Izquierda: Presentación -->
       <div class="hero-text">
         <div class="hero-badge">
           <span>☀️ Partner Oficial Felicitysolar en Chile</span>
         </div>
         <h1>Energía Solar Inteligente para un <span class="gradient-orange">Futuro Sostenible</span></h1>
-        <p>Reduce hasta un 90% en tu cuenta de luz con inversores híbridos MPPT, baterías de litio de alta durabilidad y paneles solares bifaciales con instalación incluida.</p>
+        <p>Dimensionamiento técnico preciso para casas, parcelas y proyectos en la zona central. Reduce hasta un 90% en tu cuenta de luz con inversores híbridos MPPT y baterías de litio.</p>
         
         <div class="hero-actions">
           <a href="catalogo.html" class="btn btn-primary">Ver Catálogo de Kits &rarr;</a>
@@ -74,27 +74,90 @@
         </div>
       </div>
 
-      <!-- Columna Derecha: Calculadora Solar Interactiva -->
-      <div class="calculator-card" id="calculadora">
-        <h3>Calcula tu <span class="gradient-orange">Ahorro Solar</span></h3>
-        <p class="text-gray" style="font-size: 0.9rem; margin-top: 4px;">Desliza según tu gasto mensual de electricidad:</p>
-
-        <div class="calc-slider-group">
-          <label>
-            <span>Tu cuenta mensual actual:</span>
-            <span id="bill-amount" class="text-orange" style="font-size: 1.3rem; font-weight: 800;">$100.000</span>
-          </label>
-          <input type="range" id="bill-slider" class="calc-slider" min="30000" max="350000" step="10000" value="100000">
+      <!-- Columna Derecha: CALCULADORA DE CONSUMO EXACTO -->
+      <div class="calculator-card" id="calculadora-exacta">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+          <h3 style="font-size: 1.35rem; margin: 0;">Dimensionador <span class="gradient-orange">Solar Exacto</span></h3>
+          <span style="font-size: 0.75rem; background: #FEF3C7; color: #92400E; padding: 3px 8px; border-radius: 20px; font-weight: 700;">Zona Central Chile (5.0 HSP)</span>
         </div>
 
-        <div class="calc-result-box">
-          <p class="text-gray" style="font-size: 0.8rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Tu Ahorro Estimado Anual</p>
-          <div id="annual-savings" class="savings-amount">$1.020.000</div>
-          <div id="suggested-kit" class="kit-suggested">Sugerido: Kit Solar 6000W Plus</div>
+        <!-- Pestañas de Modo de Cálculo -->
+        <div class="calc-tabs">
+          <button type="button" class="calc-tab-btn active" id="tab-btn-boleta">📄 Por Boleta / Gasto</button>
+          <button type="button" class="calc-tab-btn" id="tab-btn-equipos">⚡ Por Artefactos / Parcela</button>
         </div>
 
-        <a id="calc-whatsapp-btn" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block">
-          💬 Cotizar este Kit por WhatsApp
+        <!-- VISTA 1: CÁLCULO POR BOLETA -->
+        <div id="view-boleta" class="calc-view active">
+          <div class="calc-input-group">
+            <label for="input-gasto-luz">Tu Gasto Mensual en Electricidad ($ CLP):</label>
+            <div style="position: relative;">
+              <span style="position: absolute; left: 14px; top: 12px; font-weight: 700; color: #64748B;">$</span>
+              <input type="number" id="input-gasto-luz" class="calc-text-input" value="100000" step="5000" min="15000" max="1000000" placeholder="100000">
+            </div>
+          </div>
+
+          <div class="calc-input-group">
+            <label for="select-tipo-sistema">Tipo de Propiedad / Conexión:</label>
+            <select id="select-tipo-sistema" class="calc-select-input">
+              <option value="ongrid">Casa con Red Eléctrica (On-Grid / Bajar Cuenta)</option>
+              <option value="offgrid">Parcela de Agrado / Rural (Off-Grid / Respaldo Total)</option>
+              <option value="comercial">Comercio / Taller / Pyme</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- VISTA 2: CÁLCULO POR ARTEFACTOS EN TERRENO -->
+        <div id="view-equipos" class="calc-view">
+          <p class="text-gray" style="font-size: 0.82rem; margin-bottom: 12px;">Marca los equipos que necesitas alimentar en tu propiedad:</p>
+          <div class="appliance-list">
+            <label class="appliance-item">
+              <input type="checkbox" class="appliance-check" data-kwh="1.8" data-kw="0.2" checked>
+              <span>❄️ Refrigerador / Freezer</span>
+            </label>
+            <label class="appliance-item">
+              <input type="checkbox" class="appliance-check" data-kwh="1.0" data-kw="0.2" checked>
+              <span>📡 Starlink + Luces LED + TV</span>
+            </label>
+            <label class="appliance-item">
+              <input type="checkbox" class="appliance-check" data-kwh="3.0" data-kw="1.5" id="appliance-bomba">
+              <span>💧 Bomba de Pozo (1 - 2 HP)</span>
+            </label>
+            <label class="appliance-item">
+              <input type="checkbox" class="appliance-check" data-kwh="4.0" data-kw="2.0">
+              <span>❄️ Aire Acondicionado (12.000 BTU)</span>
+            </label>
+            <label class="appliance-item">
+              <input type="checkbox" class="appliance-check" data-kwh="1.5" data-kw="1.8">
+              <span>🧺 Lavadora + Hervidor / Microondas</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- PANEL DE RESULTADOS MATEMÁTICOS EN TIEMPO REAL -->
+        <div class="calc-results-panel">
+          <div class="calc-metric-row">
+            <div>
+              <span class="metric-label">Consumo Calculado:</span>
+              <span id="res-consumo-kwh" class="metric-val">571 kWh/mes</span>
+            </div>
+            <div>
+              <span class="metric-label">Ahorro Anual Estimado:</span>
+              <span id="res-ahorro-anual" class="metric-val text-green" style="font-weight: 800;">$1.020.000</span>
+            </div>
+          </div>
+
+          <div class="suggested-kit-banner">
+            <div style="font-size: 0.72rem; text-transform: uppercase; font-weight: 800; color: #F38120; letter-spacing: 0.5px;">Solución lituSolar Sugerida</div>
+            <div id="res-kit-nombre" style="font-size: 1.15rem; font-weight: 800; color: #0F172A; margin: 2px 0;">Kit Solar 6000W Plus</div>
+            <div id="res-kit-detalles" style="font-size: 0.8rem; color: #475569;">Inversor 6kW · 8 Paneles 620W · Bat. Litio 5kW</div>
+            <div id="res-kit-precio" style="font-size: 1.35rem; font-weight: 900; color: #F38120; margin-top: 4px;">$3.000.000 <span style="font-size: 0.75rem; color: #64748B; font-weight: normal;">(Instalación Incluida)</span></div>
+          </div>
+        </div>
+
+        <!-- Botón de Cotización por WhatsApp -->
+        <a id="calc-exacta-whatsapp-btn" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block">
+          ⚡ Cotizar este Kit Exacto por WhatsApp
         </a>
       </div>
 
@@ -149,7 +212,7 @@
         <h3>Contacto</h3>
         <p>info@litusolar.cl</p>
         <p>+56 9 7199 5226</p>
-        <p>Litueche / Región Metropolitana</p>
+        <p>Cruce El Espinillo, Litueche / Región Metropolitana</p>
       </div>
       <div class="footer-section">
         <h3>Garantía</h3>
