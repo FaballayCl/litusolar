@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>lituSolar | Energía Solar Inteligente Chile</title>
-  <meta name="description" content="Kits solares fotovoltaicos híbridos y baterías de litio Felicitysolar en Chile. Calcula tu consumo y ahorro exacto con instalación incluida.">
+  <meta name="description" content="Kits solares fotovoltaicos híbridos y baterías de litio Felicitysolar en Chile. Calcula tu consumo exacto por artefactos, watts o boleta con instalación incluida.">
   <link rel="stylesheet" href="css/styles.css">
   <link rel="icon" href="images/logo.png" type="image/png">
 </head>
@@ -41,17 +41,17 @@
     </div>
   </header>
 
-  <!-- 3. HERO CON CALCULADORA DE INGENIERÍA EXACTA -->
+  <!-- 3. HERO CON CALCULADORA DE INGENIERÍA EXACTA (3 MODOS) -->
   <section id="hero">
     <div class="container hero-container">
       
-      <!-- Columna Izquierda: Presentación -->
+      <!-- Columna Izquierda: Presentación Comercial -->
       <div class="hero-text">
         <div class="hero-badge">
           <span>☀️ Partner Oficial Felicitysolar en Chile</span>
         </div>
         <h1>Energía Solar Inteligente para un <span class="gradient-orange">Futuro Sostenible</span></h1>
-        <p>Dimensionamiento técnico preciso para casas, parcelas y proyectos en la zona central. Reduce hasta un 90% en tu cuenta de luz con inversores híbridos MPPT y baterías de litio.</p>
+        <p>Dimensionamiento técnico exacto para casas, parcelas, oficinas y proyectos en la zona central. Diseñado para resistir cortes de luz y reducir hasta un 90% en tu cuenta eléctrica.</p>
         
         <div class="hero-actions">
           <a href="catalogo.html" class="btn btn-primary">Ver Catálogo de Kits &rarr;</a>
@@ -74,20 +74,21 @@
         </div>
       </div>
 
-      <!-- Columna Derecha: CALCULADORA DE CONSUMO EXACTO -->
+      <!-- Columna Derecha: CALCULADORA DE CONSUMO SOLAR MULTI-MODO -->
       <div class="calculator-card" id="calculadora-exacta">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-          <h3 style="font-size: 1.35rem; margin: 0;">Dimensionador <span class="gradient-orange">Solar Exacto</span></h3>
-          <span style="font-size: 0.75rem; background: #FEF3C7; color: #92400E; padding: 3px 8px; border-radius: 20px; font-weight: 700;">Zona Central Chile (5.0 HSP)</span>
+          <h3 style="font-size: 1.3rem; margin: 0;">Dimensionador <span class="gradient-orange">Solar Exacto</span></h3>
+          <span style="font-size: 0.72rem; background: #FEF3C7; color: #92400E; padding: 3px 8px; border-radius: 20px; font-weight: 700;">5.0 HSP Chile Central</span>
         </div>
 
-        <!-- Pestañas de Modo de Cálculo -->
+        <!-- 3 Pestañas de Modo de Cálculo -->
         <div class="calc-tabs">
-          <button type="button" class="calc-tab-btn active" id="tab-btn-boleta">📄 Por Boleta / Gasto</button>
-          <button type="button" class="calc-tab-btn" id="tab-btn-equipos">⚡ Por Artefactos / Parcela</button>
+          <button type="button" class="calc-tab-btn active" id="tab-btn-boleta">📄 Por Boleta</button>
+          <button type="button" class="calc-tab-btn" id="tab-btn-equipos">⚡ Por Artefactos</button>
+          <button type="button" class="calc-tab-btn" id="tab-btn-watts">🎛️ Por Watts</button>
         </div>
 
-        <!-- VISTA 1: CÁLCULO POR BOLETA -->
+        <!-- PESTAÑA 1: POR BOLETA -->
         <div id="view-boleta" class="calc-view active">
           <div class="calc-input-group">
             <label for="input-gasto-luz">Tu Gasto Mensual en Electricidad ($ CLP):</label>
@@ -107,34 +108,35 @@
           </div>
         </div>
 
-        <!-- VISTA 2: CÁLCULO POR ARTEFACTOS EN TERRENO -->
+        <!-- PESTAÑA 2: POR ARTEFACTOS EXTENDIDO CON CANTIDADES -->
         <div id="view-equipos" class="calc-view">
-          <p class="text-gray" style="font-size: 0.82rem; margin-bottom: 12px;">Marca los equipos que necesitas alimentar en tu propiedad:</p>
-          <div class="appliance-list">
-            <label class="appliance-item">
-              <input type="checkbox" class="appliance-check" data-kwh="1.8" data-kw="0.2" checked>
-              <span>❄️ Refrigerador / Freezer</span>
-            </label>
-            <label class="appliance-item">
-              <input type="checkbox" class="appliance-check" data-kwh="1.0" data-kw="0.2" checked>
-              <span>📡 Starlink + Luces LED + TV</span>
-            </label>
-            <label class="appliance-item">
-              <input type="checkbox" class="appliance-check" data-kwh="3.0" data-kw="1.5" id="appliance-bomba">
-              <span>💧 Bomba de Pozo (1 - 2 HP)</span>
-            </label>
-            <label class="appliance-item">
-              <input type="checkbox" class="appliance-check" data-kwh="4.0" data-kw="2.0">
-              <span>❄️ Aire Acondicionado (12.000 BTU)</span>
-            </label>
-            <label class="appliance-item">
-              <input type="checkbox" class="appliance-check" data-kwh="1.5" data-kw="1.8">
-              <span>🧺 Lavadora + Hervidor / Microondas</span>
-            </label>
+          <p class="text-gray" style="font-size: 0.8rem; margin-bottom: 10px;">Ajusta las cantidades de tus artefactos eléctricos:</p>
+          <div class="appliance-list-v2" id="appliance-container">
+            <!-- Se genera dinámicamente con botones + y - -->
           </div>
         </div>
 
-        <!-- PANEL DE RESULTADOS MATEMÁTICOS EN TIEMPO REAL -->
+        <!-- PESTAÑA 3: POR WATTS PERSONALIZADOS -->
+        <div id="view-watts" class="calc-view">
+          <p class="text-gray" style="font-size: 0.8rem; margin-bottom: 10px;">Ingresa la potencia total y horas de uso de tus equipos:</p>
+          <div class="calc-input-group">
+            <label for="input-custom-watts">Potencia Total de Carga (Watts):</label>
+            <div style="position: relative;">
+              <input type="number" id="input-custom-watts" class="calc-text-input" value="2500" step="100" min="100" max="25000" placeholder="2500" style="padding-left: 14px;">
+              <span style="position: absolute; right: 14px; top: 12px; font-weight: 700; color: #64748B;">Watts (W)</span>
+            </div>
+          </div>
+
+          <div class="calc-input-group">
+            <label for="input-custom-hours">Horas de Uso Diario Estimadas:</label>
+            <div style="position: relative;">
+              <input type="number" id="input-custom-hours" class="calc-text-input" value="5" step="0.5" min="1" max="24" placeholder="5" style="padding-left: 14px;">
+              <span style="position: absolute; right: 14px; top: 12px; font-weight: 700; color: #64748B;">Horas / día</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PANEL DE RESULTADOS MATEMÁTICOS EN VIVO -->
         <div class="calc-results-panel">
           <div class="calc-metric-row">
             <div>
@@ -155,7 +157,7 @@
           </div>
         </div>
 
-        <!-- Botón de Cotización por WhatsApp -->
+        <!-- Botón de WhatsApp -->
         <a id="calc-exacta-whatsapp-btn" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block">
           ⚡ Cotizar este Kit Exacto por WhatsApp
         </a>
