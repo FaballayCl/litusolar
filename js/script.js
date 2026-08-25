@@ -176,4 +176,273 @@ document.addEventListener('DOMContentLoaded', () => {
   // ========================================================================
   // 6. MOTOR DE DIMENSIONAMIENTO EXACTO (BOLETA, ARTEFACTOS, WATTS)
   // ========================================================================
-  const
+  const tabBtnBoleta = document.getElementById('tab-btn-boleta');
+  const tabBtnEquipos = document.getElementById('tab-btn-equipos');
+  const tabBtnWatts = document.getElementById('tab-btn-watts');
+
+  const viewBoleta = document.getElementById('view-boleta');
+  const viewEquipos = document.getElementById('view-equipos');
+  const viewWatts = document.getElementById('view-watts');
+
+  const inputGastoLuz = document.getElementById('input-gasto-luz');
+  const selectTipoSistema = document.getElementById('select-tipo-sistema');
+  const applianceContainer = document.getElementById('appliance-container');
+
+  const inputCustomWatts = document.getElementById('input-custom-watts');
+  const inputCustomHours = document.getElementById('input-custom-hours');
+
+  const resConsumoKwh = document.getElementById('res-consumo-kwh');
+  const resAhorroAnual = document.getElementById('res-ahorro-anual');
+  const resKitNombre = document.getElementById('res-kit-nombre');
+  const resKitDetalles = document.getElementById('res-kit-detalles');
+  const resKitPrecio = document.getElementById('res-kit-precio');
+  const calcWhatsappBtn = document.getElementById('calc-exacta-whatsapp-btn');
+
+  let modoCalculo = 'boleta'; // 'boleta', 'equipos', 'watts'
+  const applianceQuantities = {};
+
+  // Renderizar la lista de artefactos con botones +/-
+  if (applianceContainer) {
+    applianceContainer.innerHTML = '';
+    APPLIANCES_CONFIG.forEach(app => {
+      applianceQuantities[app.id] = app.defaultQty;
+
+      const row = document.createElement('div');
+      row.className = `appliance-row ${app.defaultQty > 0 ? 'active' : ''}`;
+      row.id = `row-${app.id}`;
+      row.innerHTML = `
+        <div class="appliance-info">
+          <span class="appliance-title">${app.name}</span>
+          <span class="appliance-sub">${app.sub}</span>
+        </div>
+        <div class="qty-control">
+          <button type="button" class="qty-btn btn-minus" data-id="${app.id}">-</button>
+          <span class="qty-display" id="qty-${app.id}">${app.defaultQty}</span>
+          <button type="button" class="qty-btn btn-plus" data-id="${app.id}">+</button>
+        </div>
+      `;
+
+      // Eventos botones + y -
+      row.querySelector('.btn-minus').addEventListener('click', () => {
+        if (applianceQuantities[app.id] > 0) {
+          applianceQuantities[app.id]--;
+          document.getElementById(`qty-${app.id}`).textContent = applianceQuantities[app.id];
+          row.classList.toggle('active', applianceQuantities[app.id] > 0);
+          ejecutarCalculoExacto();
+        }
+      });
+
+      row.querySelector('.btn-plus').addEventListener('click', () => {
+        if (applianceQuantities[app.id] < 20) {
+          applianceQuantities[app.id]++;
+          document.getElementById(`qty-${app.id}`).textContent = applianceQuantities[app.id];
+          row.classList.add('active');
+          ejecutarCalculoExacto();
+        }
+      });
+
+      applianceContainer.appendChild(row);
+    });
+  }
+
+  // Conmutador de 3 Pestañas
+  if (tabBtnBoleta && tabBtnEquipos && tabBtnWatts) {
+    tabBtnBoleta.addEventListener('click', () => {
+      modoCalculo = 'boleta';
+      tabBtnBoleta.classList.add('active');
+      tabBtnEquipos.classList.remove('active');
+      tabBtnWatts.classList.remove('active');
+      viewBoleta.classList.add('active');
+      viewEquipos.classList.remove('active');
+      viewWatts.classList.remove('active');
+      ejecutarCalculoExacto();
+    });
+
+    tabBtnEquipos.addEventListener('click', () => {
+      modoCalculo = 'equipos';
+      tabBtnEquipos.classList.add('active');
+      tabBtnBoleta.classList.remove('active');
+      tabBtnWatts.classList.remove('active');
+      viewEquipos.classList.add('active');
+      viewBoleta.classList.remove('active');
+      viewWatts.classList.remove('active');
+      ejecutarCalculoExacto();
+    });
+
+    tabBtnWatts.addEventListener('click', () => {
+      modoCalculo = 'watts';
+      tabBtnWatts.classList.add('active');
+      tabBtnBoleta.classList.remove('active');
+      tabBtnEquipos.classList.remove('active');
+      viewWatts.classList.add('active');
+      viewBoleta.classList.remove('active');
+      viewEquipos.classList.remove('active');
+      ejecutarCalculoExacto();
+    });
+  }
+
+  function ejecutarCalculoExacto() {
+    if (!resKitNombre) return;
+
+    const TARIFA_KWH = 175; // $175 CLP por kWh
+    let consumoMensualKwh = 0;
+    let gastoMensualClp = 0;
+    let esOffgrid = false;
+    let tieneBombaPozo = false;
+    let mensajeContextoWhatsapp = '';
+
+    if (modoCalculo === 'boleta') {
+      gastoMensualClp = Math.max(15000, Number(inputGastoLuz ? inputGastoLuz.value : 100000) || 100000);
+      consumoMensualKwh = Math.round(gastoMensualClp / TARIFA_KWH);
+      const tipo = selectTipoSistema ? selectTipoSistema.value : 'ongrid';
+      esOffgrid = (tipo === 'offgrid');
+      mensajeContextoWhatsapp = `mi cuenta mensual es de ${formatCLP(gastoMensualClp)} (${consumoMensualKwh} kWh/mes)`;
+
+    } else if (modoCalculo === 'equipos') {
+      let kwhDiarios = 0;
+      const artefactosActivos = [];
+
+      APPLIANCES_CONFIG.forEach(app => {
+        const qty = applianceQuantities[app.id] || 0;
+        if (qty > 0) {
+          kwhDiarios += (app.kwhDia * qty);
+          artefactosActivos.push(`${qty}x ${app.name}`);
+          if (app.id.includes('bomba')) tieneBombaPozo = true;
+        }
+      });
+
+      kwhDiarios = Math.max(2.5, kwhDiarios);
+      consumoMensualKwh = Math.round(kwhDiarios * 30);
+      gastoMensualClp = Math.round(consumoMensualKwh * TARIFA_KWH);
+      esOffgrid = true;
+      mensajeContextoWhatsapp = `tengo los siguientes equipos: ${artefactosActivos.join(', ')} (${consumoMensualKwh} kWh/mes est.)`;
+
+    } else if (modoCalculo === 'watts') {
+      const watts = Math.max(100, Number(inputCustomWatts ? inputCustomWatts.value : 2500) || 2500);
+      const horas = Math.max(1, Number(inputCustomHours ? inputCustomHours.value : 5) || 5);
+      const kwhDiarios = (watts * horas) / 1000;
+      consumoMensualKwh = Math.round(kwhDiarios * 30);
+      gastoMensualClp = Math.round(consumoMensualKwh * TARIFA_KWH);
+      esOffgrid = true;
+      if (watts >= 1500) tieneBombaPozo = true;
+      mensajeContextoWhatsapp = `necesito alimentar una carga de ${watts} Watts durante ${horas} hrs/día (${consumoMensualKwh} kWh/mes)`;
+    }
+
+    // Reglas Matemáticas de Emparejamiento con el Catálogo Oficial
+    let kitElegido = {
+      nombre: "Kit Solar 6000W Plus",
+      detalles: "Inversor Híbrido 6kW · 8 Paneles Bifaciales 620W · Bat. Litio 5kW",
+      precio: 3000000
+    };
+
+    if (consumoMensualKwh >= 1000 || gastoMensualClp >= 250000) {
+      kitElegido = {
+        nombre: "Kit Solar 8000W Master Pro (16 Paneles)",
+        detalles: "Inversor Híbrido 8kW · 16 Paneles 620W · Bat. Litio Industrial 14.3kWh",
+        precio: 6800000
+      };
+    } else if (consumoMensualKwh >= 750 || gastoMensualClp >= 180000 || (esOffgrid && tieneBombaPozo && consumoMensualKwh >= 600)) {
+      kitElegido = {
+        nombre: "Kit Solar 8000W Plus (Batería 14.3kW)",
+        detalles: "Inversor Híbrido 8kW · 12 Paneles 620W · Bat. Litio 14.3kWh",
+        precio: 6100000
+      };
+    } else if (consumoMensualKwh >= 550 || gastoMensualClp >= 130000 || tieneBombaPozo) {
+      kitElegido = {
+        nombre: "Kit Solar 8000W (Batería 8.75kW)",
+        detalles: "Inversor Híbrido 8kW · 12 Paneles 620W · Bat. Litio 8.75kW",
+        precio: 5000000
+      };
+    } else if (consumoMensualKwh >= 400 || gastoMensualClp >= 100000 || (esOffgrid && consumoMensualKwh >= 350)) {
+      kitElegido = {
+        nombre: "Kit Solar 6000W Premium",
+        detalles: "Inversor Híbrido 6kW · 8 Paneles Bifaciales 620W · Bat. Litio 8.75kW",
+        precio: 3700000
+      };
+    } else if (consumoMensualKwh >= 280 || gastoMensualClp >= 70000) {
+      kitElegido = {
+        nombre: "Kit Solar 6000W Plus",
+        detalles: "Inversor Híbrido 6kW · 8 Paneles Bifaciales 620W · Bat. Litio 5kW",
+        precio: 3000000
+      };
+    } else if (consumoMensualKwh >= 150 || gastoMensualClp >= 40000) {
+      kitElegido = {
+        nombre: "Kit Solar 6000W Básico",
+        detalles: "Inversor Híbrido 6kW · 6 Paneles Bifaciales 620W · Bat. Litio 5kW",
+        precio: 2700000
+      };
+    } else {
+      kitElegido = {
+        nombre: "Tu Primer Kit Solar 4kW",
+        detalles: "Inversor Híbrido 4kW · 3 Paneles 620W · Bat. Litio 2.5kW",
+        precio: 1750000
+      };
+    }
+
+    const ahorroAnualClp = Math.round(gastoMensualClp * 12 * 0.85);
+
+    if (resConsumoKwh) resConsumoKwh.textContent = `${consumoMensualKwh} kWh/mes`;
+    if (resAhorroAnual) resAhorroAnual.textContent = `${formatCLP(ahorroAnualClp)}/año`;
+    if (resKitNombre) resKitNombre.textContent = kitElegido.nombre;
+    if (resKitDetalles) resKitDetalles.textContent = kitElegido.detalles;
+    if (resKitPrecio) resKitPrecio.innerHTML = `${formatCLP(kitElegido.precio)} <span style="font-size: 0.75rem; color: #64748B; font-weight: normal;">(Instalación Incluida)</span>`;
+
+    if (calcWhatsappBtn) {
+      const msg = encodeURIComponent(`Hola lituSolar, calculé mi proyecto en la web: ${mensajeContextoWhatsapp}. El dimensionador me recomendó el "${kitElegido.nombre}". Quisiera coordinar una visita técnica a terreno.`);
+      calcWhatsappBtn.href = `https://wa.me/56971995226?text=${msg}`;
+    }
+  }
+
+  // Listeners
+  if (inputGastoLuz) inputGastoLuz.addEventListener('input', ejecutarCalculoExacto);
+  if (selectTipoSistema) selectTipoSistema.addEventListener('change', ejecutarCalculoExacto);
+  if (inputCustomWatts) inputCustomWatts.addEventListener('input', ejecutarCalculoExacto);
+  if (inputCustomHours) inputCustomHours.addEventListener('input', ejecutarCalculoExacto);
+
+  ejecutarCalculoExacto();
+
+  // --- 7. FORMULARIO DE CONTACTO ---
+  const contactoForm = document.querySelector('form');
+  const alertSuccess = document.querySelector('.alert-success');
+  if (contactoForm) {
+    contactoForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const submitBtn = contactoForm.querySelector('button[type="submit"]');
+      const originalText = submitBtn ? submitBtn.textContent : 'Enviar';
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Enviando solicitud...';
+      }
+
+      const payload = {
+        nombre: contactoForm.querySelector('#nombre')?.value || '',
+        email: contactoForm.querySelector('#email')?.value || '',
+        telefono: contactoForm.querySelector('#telefono')?.value || '',
+        mensaje: contactoForm.querySelector('#mensaje')?.value || '',
+        _hp_check: contactoForm.querySelector('#_hp_check')?.value || ''
+      };
+
+      try {
+        const res = await fetch(GOOGLE_API_URL, { method: 'POST', body: JSON.stringify(payload) });
+        const result = await res.json();
+        if (result.success) {
+          contactoForm.reset();
+          if (alertSuccess) {
+            alertSuccess.classList.add('active');
+            alertSuccess.textContent = '¡Muchas gracias! Tu solicitud ha sido registrada con éxito. Un asesor técnico te contactará a la brevedad.';
+          }
+        } else {
+          alert(result.message || 'Error al enviar.');
+        }
+      } catch (err) {
+        alert('Error de conexión. Escríbenos a info@litusolar.cl o al +56 9 7199 5226.');
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+        }
+      }
+    });
+  }
+});
