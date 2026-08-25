@@ -1,6 +1,6 @@
 /**
- * lituSolar v2.2 - Frontend Script
- * Visor de Imágenes en Pantalla Completa (Lightbox) + Catálogo Instantáneo + Calculadora + API Google
+ * lituSolar v2.3 - Frontend Script
+ * Corrección de Lightbox (Oculto por defecto) + Intro Fluida + Calculadora + API Google
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -18,18 +18,23 @@ document.addEventListener('DOMContentLoaded', () => {
     { id: "EST-MONOPOSTE", nombre: "Estructura Monoposte para Paneles Solares", precio: 0, potencia_total: "Soporte 8 / 16 paneles", descripcion_corta: "Estructura resistente para 8 o 16 paneles con inclinación óptima.", imagen_url: "images/estructura-monoposte.jpg" }
   ];
 
-  // --- 1. INTRO SPLASH SCREEN ---
+  // --- 1. CONTROL DE LA INTRO ANIMADA (Splash Screen) ---
   const introOverlay = document.getElementById('solar-intro-overlay');
   const skipBtn = document.getElementById('skip-intro');
+
   if (introOverlay) {
     const hideIntro = () => {
       introOverlay.classList.add('fade-out');
-      setTimeout(() => introOverlay.style.display = 'none', 800);
+      setTimeout(() => {
+        introOverlay.style.display = 'none';
+      }, 700);
     };
-    const timer = setTimeout(hideIntro, 2000);
+
+    const introTimer = setTimeout(hideIntro, 1800);
+
     if (skipBtn) {
       skipBtn.addEventListener('click', () => {
-        clearTimeout(timer);
+        clearTimeout(introTimer);
         hideIntro();
       });
     }
@@ -64,32 +69,45 @@ document.addEventListener('DOMContentLoaded', () => {
     return 'images/logo.png';
   };
 
-  // --- 4. MODAL VISOR DE IMÁGENES EN GRANDE (LIGHTBOX) ---
+  // --- 4. MODAL VISOR DE IMÁGENES EN GRANDE (LIGHTBOX SEGURO) ---
   let lightbox = document.getElementById('image-lightbox-modal');
   if (!lightbox) {
     lightbox = document.createElement('div');
     lightbox.id = 'image-lightbox-modal';
     lightbox.className = 'lightbox-modal';
+    lightbox.style.display = 'none'; // Nace 100% oculto
     lightbox.innerHTML = `
       <span class="lightbox-close">&times;</span>
-      <img src="" alt="Vista ampliada" class="lightbox-img">
+      <img src="" alt="" class="lightbox-img">
     `;
     document.body.appendChild(lightbox);
 
-    const closeLightbox = () => lightbox.classList.remove('active');
+    const closeLightbox = () => {
+      lightbox.classList.remove('active');
+      setTimeout(() => {
+        if (!lightbox.classList.contains('active')) {
+          lightbox.style.display = 'none';
+        }
+      }, 300);
+    };
+
     lightbox.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
     lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox) closeLightbox();
+      if (e.target === lightbox || e.target.classList.contains('lightbox-close')) closeLightbox();
     });
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && lightbox.classList.contains('active')) closeLightbox();
+      if (e.key === 'Escape') closeLightbox();
     });
   }
 
   const openLightbox = (src) => {
+    if (!src || src.includes('logo.png')) return;
     const imgElement = lightbox.querySelector('.lightbox-img');
     imgElement.src = src;
-    lightbox.classList.add('active');
+    lightbox.style.display = 'flex';
+    requestAnimationFrame(() => {
+      lightbox.classList.add('active');
+    });
   };
 
   // --- 5. CARGA INSTANTÁNEA DEL CATÁLOGO ---
@@ -110,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const whatsappUrl = `https://wa.me/56971995226?text=${encodeURIComponent(`Hola lituSolar, me interesa cotizar el "${prod.nombre}" (${prod.potencia_total || ''}).`)}`;
 
       card.innerHTML = `
-        <div class="product-img-wrapper" title="Haz clic para ampliar la imagen">
+        <div class="product-img-wrapper" title="Haz clic para ampliar">
           <img src="${imgPath}" alt="${nombre}" loading="lazy" decoding="async" class="product-clickable-img"
                onerror="if (this.src.endsWith('.jpg')) { this.src = this.src.replace('.jpg', '.jpeg'); } else if (this.src.endsWith('.jpeg')) { this.src = this.src.replace('.jpeg', '.png'); } else { this.src = 'images/logo.png'; }">
           <span class="expand-icon">🔍 Ampliar</span>
@@ -123,8 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </a>
       `;
 
-      // Evento para abrir en grande al hacer clic en la imagen
-      card.querySelector('.product-img-wrapper').addEventListener('click', (e) => {
+      card.querySelector('.product-img-wrapper').addEventListener('click', () => {
         const img = card.querySelector('img');
         if (img && img.src) openLightbox(img.src);
       });
@@ -133,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  // Carga inicial inmediata
+  // Carga inmediata
   const cachedData = localStorage.getItem('litusolar_products_cache');
   if (cachedData) {
     try { renderProducts(JSON.parse(cachedData)); } catch (e) { renderProducts(INITIAL_PRODUCTS); }
@@ -151,10 +168,10 @@ document.addEventListener('DOMContentLoaded', () => {
           renderProducts(response.data);
         }
       })
-      .catch(() => console.log('Catálogo servido desde almacenamiento local.'));
+      .catch(() => console.log('Catálogo en memoria activo.'));
   }
 
-  // --- 6. CALCULADORA SOLAR ---
+  // --- 6. CALCULADORA SOLAR INTERACTIVA ---
   const billSlider = document.getElementById('bill-slider');
   const billAmountDisplay = document.getElementById('bill-amount');
   const annualSavingsDisplay = document.getElementById('annual-savings');
