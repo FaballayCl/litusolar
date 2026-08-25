@@ -1,6 +1,6 @@
 /* ==========================================================================
-   lituSolar v2.2 - Modern Solar Tech CSS Global
-   Estética Premium, Glassmorphism, Visor Lightbox y Fotos Estáticas Limpias
+   lituSolar v2.3 - Modern Solar Tech CSS Global
+   Estética Premium, Glassmorphism, Visor Lightbox Oculto y Fotos Estáticas
    ========================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@600;700;800;900&display=swap');
@@ -137,7 +137,7 @@ img { max-width: 100%; height: auto; display: block; }
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s ease;
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.7s ease;
 }
 
 #solar-intro-overlay.fade-out {
@@ -226,7 +226,7 @@ img { max-width: 100%; height: auto; display: block; }
   height: 100%;
   background: var(--solar-gradient);
   border-radius: 4px;
-  animation: load-bar 1.6s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards;
+  animation: load-bar 1.5s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards;
   box-shadow: 0 0 12px rgba(243, 129, 32, 0.8);
 }
 
@@ -454,7 +454,7 @@ header {
   margin-top: 4px;
 }
 
-/* --- 5. GRILLA DE PRODUCTOS (CON CLICK PARA EXPANDIR) --- */
+/* --- 5. GRILLA DE PRODUCTOS CON CLICK PARA AMPLIAR --- */
 .page-content {
   padding: 140px 0 80px 0;
 }
@@ -529,16 +529,16 @@ header {
 .product-card .price { font-size: 1.7rem; font-weight: 800; color: var(--primary-orange); font-family: 'Outfit', sans-serif; margin-bottom: 12px; }
 .product-card .desc { font-size: 0.92rem; color: var(--text-muted); margin-bottom: 24px; flex-grow: 1; }
 
-/* --- 6. MODAL VISOR EN PANTALLA COMPLETA (LIGHTBOX) --- */
+/* --- 6. MODAL VISOR EN PANTALLA COMPLETA (LIGHTBOX CORREGIDO: DISPLAY NONE) --- */
 .lightbox-modal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(11, 19, 43, 0.92);
+  background: rgba(11, 19, 43, 0.94);
   backdrop-filter: blur(10px);
-  display: flex;
+  display: none; /* 100% OCULTO POR DEFECTO */
   align-items: center;
   justify-content: center;
   z-index: 100000;
@@ -548,6 +548,7 @@ header {
 }
 
 .lightbox-modal.active {
+  display: flex !important;
   opacity: 1;
   pointer-events: all;
 }
@@ -583,7 +584,7 @@ header {
   color: var(--primary-orange);
 }
 
-/* --- 7. FOTOS ESTÁTICAS PARA NOSOTROS (SIN ZOOM NI ETIQUETAS) --- */
+/* --- 7. FOTOS ESTÁTICAS PARA NOSOTROS --- */
 .static-img-frame {
   background: var(--white);
   padding: 14px;
