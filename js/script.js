@@ -1,6 +1,6 @@
 /**
- * lituSolar v2.4 - Frontend Script
- * Motor Matemático de Dimensionamiento Solar Exacto + Lightbox + API Google
+ * lituSolar v2.5 - Frontend Script Interactivo
+ * Dimensionador Multi-Modo (Boleta, Artefactos con Cantidades, Watts Directos) + Lightbox + API Google
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -16,6 +16,22 @@ document.addEventListener('DOMContentLoaded', () => {
     { id: "KIT-8000W-14B-12P", nombre: "Kit Solar 8000W Plus (Batería 14.3kW)", precio: 6100000, potencia_total: "8000W", descripcion_corta: "Inversor 8kW, 12 paneles de 620W y batería de litio 14.3kWh.", imagen_url: "images/kit-8000w-14bateria.jpg" },
     { id: "KIT-8000W-14B-16P", nombre: "Kit Solar 8000W Master Pro (16 Paneles)", precio: 6800000, potencia_total: "8000W", descripcion_corta: "Máxima potencia con 16 paneles de 620W y batería de litio 14.3kWh.", imagen_url: "images/kit-8000w-16paneles.jpg" },
     { id: "EST-MONOPOSTE", nombre: "Estructura Monoposte para Paneles Solares", precio: 0, potencia_total: "Soporte 8 / 16 paneles", descripcion_corta: "Estructura resistente para 8 o 16 paneles con inclinación óptima.", imagen_url: "images/estructura-monoposte.jpg" }
+  ];
+
+  // Catálogo Extendido de Artefactos para el Dimensionador
+  const APPLIANCES_CONFIG = [
+    { id: 'refri', name: 'Refrigerador / Freezer', sub: '150W · Uso continuo 24h', kwhDia: 1.8, kwPico: 0.2, defaultQty: 1 },
+    { id: 'starlink', name: 'Starlink / Internet + TV', sub: '120W · 8 hrs/día', kwhDia: 1.0, kwPico: 0.15, defaultQty: 1 },
+    { id: 'luces', name: 'Luces LED (Juego 5 a 10)', sub: '80W · 6 hrs/día', kwhDia: 0.5, kwPico: 0.1, defaultQty: 1 },
+    { id: 'pc_gamer', name: 'Computador PC / Torre', sub: '300W · 6 hrs/día', kwhDia: 1.8, kwPico: 0.35, defaultQty: 0 },
+    { id: 'notebook', name: 'Notebook / Laptop', sub: '65W · 8 hrs/día', kwhDia: 0.5, kwPico: 0.07, defaultQty: 0 },
+    { id: 'bomba_1hp', name: 'Bomba de Pozo 1 HP', sub: '750W · 2 hrs/día (Riego/Agua)', kwhDia: 1.5, kwPico: 1.5, defaultQty: 0 },
+    { id: 'bomba_2hp', name: 'Bomba de Pozo 2 HP', sub: '1.500W · 2 hrs/día (Riego/Agua)', kwhDia: 3.0, kwPico: 2.8, defaultQty: 0 },
+    { id: 'aire_ac', name: 'Aire Acondicionado', sub: '1.200W · 4 hrs/día', kwhDia: 4.8, kwPico: 1.5, defaultQty: 0 },
+    { id: 'lavadora', name: 'Lavadora / Secadora', sub: '600W · 1.5 hrs/día', kwhDia: 0.9, kwPico: 0.8, defaultQty: 0 },
+    { id: 'microondas', name: 'Microondas / Hervidor', sub: '1.500W · 30 min/día', kwhDia: 0.75, kwPico: 1.8, defaultQty: 0 },
+    { id: 'porton', name: 'Portón / Cerco Eléctrico', sub: '50W · 24 hrs/día', kwhDia: 1.2, kwPico: 0.2, defaultQty: 0 },
+    { id: 'herramientas', name: 'Herramientas / Taller', sub: '1.000W · 1.5 hrs/día', kwhDia: 1.5, kwPico: 1.2, defaultQty: 0 }
   ];
 
   // --- 1. INTRO SPLASH SCREEN ---
@@ -43,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
     navLinks.querySelectorAll('a').forEach(l => l.addEventListener('click', () => navLinks.classList.remove('active')));
   }
 
-  // --- 3. UTILIDADES DE FORMATO Y SEGURIDAD ---
+  // --- 3. UTILIDADES ---
   const formatCLP = (monto) => {
     if (!monto || isNaN(monto) || monto <= 0) return 'A cotizar';
     return new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', maximumFractionDigits: 0 }).format(monto);
@@ -58,9 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const sanitizeUrl = (url) => {
     if (!url) return 'images/logo.png';
     const clean = String(url).trim();
-    if (clean.startsWith('images/') || clean.startsWith('http://') || clean.startsWith('https://')) {
-      return clean;
-    }
+    if (clean.startsWith('images/') || clean.startsWith('http://') || clean.startsWith('https://')) return clean;
     return 'images/logo.png';
   };
 
@@ -103,7 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- 5. CARGA INSTANTÁNEA DEL CATÁLOGO ---
   const catalogoContainer = document.getElementById('catalogo-container');
-
   const renderProducts = (productos) => {
     if (!catalogoContainer || !productos || productos.length === 0) return;
     catalogoContainer.innerHTML = '';
@@ -157,200 +170,10 @@ document.addEventListener('DOMContentLoaded', () => {
           renderProducts(response.data);
         }
       })
-      .catch(() => console.log('Catálogo servido desde caché local.'));
+      .catch(() => console.log('Catálogo en memoria activo.'));
   }
 
   // ========================================================================
-  // 6. MOTOR MATEMÁTICO DE DIMENSIONAMIENTO SOLAR EXACTO
+  // 6. MOTOR DE DIMENSIONAMIENTO EXACTO (BOLETA, ARTEFACTOS, WATTS)
   // ========================================================================
-  const tabBtnBoleta = document.getElementById('tab-btn-boleta');
-  const tabBtnEquipos = document.getElementById('tab-btn-equipos');
-  const viewBoleta = document.getElementById('view-boleta');
-  const viewEquipos = document.getElementById('view-equipos');
-
-  const inputGastoLuz = document.getElementById('input-gasto-luz');
-  const selectTipoSistema = document.getElementById('select-tipo-sistema');
-  const applianceChecks = document.querySelectorAll('.appliance-check');
-
-  const resConsumoKwh = document.getElementById('res-consumo-kwh');
-  const resAhorroAnual = document.getElementById('res-ahorro-anual');
-  const resKitNombre = document.getElementById('res-kit-nombre');
-  const resKitDetalles = document.getElementById('res-kit-detalles');
-  const resKitPrecio = document.getElementById('res-kit-precio');
-  const calcWhatsappBtn = document.getElementById('calc-exacta-whatsapp-btn');
-
-  let modoCalculo = 'boleta'; // 'boleta' o 'equipos'
-
-  // Conmutador de Pestañas
-  if (tabBtnBoleta && tabBtnEquipos) {
-    tabBtnBoleta.addEventListener('click', () => {
-      modoCalculo = 'boleta';
-      tabBtnBoleta.classList.add('active');
-      tabBtnEquipos.classList.remove('active');
-      viewBoleta.classList.add('active');
-      viewEquipos.classList.remove('active');
-      ejecutarCalculoExacto();
-    });
-
-    tabBtnEquipos.addEventListener('click', () => {
-      modoCalculo = 'equipos';
-      tabBtnEquipos.classList.add('active');
-      tabBtnBoleta.classList.remove('active');
-      viewEquipos.classList.add('active');
-      viewBoleta.classList.remove('active');
-      ejecutarCalculoExacto();
-    });
-  }
-
-  function ejecutarCalculoExacto() {
-    if (!resKitNombre) return;
-
-    // Tarifa promedio actual en Chile Central (~$175 CLP / kWh)
-    const TARIFA_KWH = 175;
-    let consumoMensualKwh = 0;
-    let gastoMensualClp = 0;
-    let esOffgrid = false;
-    let tieneBombaPozo = false;
-
-    if (modoCalculo === 'boleta') {
-      gastoMensualClp = Math.max(15000, Number(inputGastoLuz ? inputGastoLuz.value : 100000) || 100000);
-      consumoMensualKwh = Math.round(gastoMensualClp / TARIFA_KWH);
-      const tipo = selectTipoSistema ? selectTipoSistema.value : 'ongrid';
-      esOffgrid = (tipo === 'offgrid');
-    } else {
-      // Sumatoria de consumo diario de artefactos
-      let kwhDiarios = 0;
-      applianceChecks.forEach(chk => {
-        if (chk.checked) {
-          kwhDiarios += parseFloat(chk.getAttribute('data-kwh') || 0);
-          if (chk.id === 'appliance-bomba') tieneBombaPozo = true;
-        }
-      });
-      // Asegurar consumo base mínimo
-      kwhDiarios = Math.max(2.5, kwhDiarios);
-      consumoMensualKwh = Math.round(kwhDiarios * 30);
-      gastoMensualClp = Math.round(consumoMensualKwh * TARIFA_KWH);
-      esOffgrid = true; // Por artefactos se asume autonomía con batería
-    }
-
-    // Reglas Matemáticas de Emparejamiento con el Catálogo Oficial
-    let kitElegido = {
-      nombre: "Kit Solar 6000W Plus",
-      detalles: "Inversor Híbrido 6kW · 8 Paneles Bifaciales 620W · Bat. Litio 5kW",
-      precio: 3000000
-    };
-
-    if (consumoMensualKwh >= 1000 || gastoMensualClp >= 250000) {
-      kitElegido = {
-        nombre: "Kit Solar 8000W Master Pro (16 Paneles)",
-        detalles: "Inversor Híbrido 8kW · 16 Paneles 620W · Bat. Litio Industrial 14.3kWh",
-        precio: 6800000
-      };
-    } else if (consumoMensualKwh >= 750 || gastoMensualClp >= 180000 || (esOffgrid && tieneBombaPozo && consumoMensualKwh >= 600)) {
-      kitElegido = {
-        nombre: "Kit Solar 8000W Plus (Batería 14.3kW)",
-        detalles: "Inversor Híbrido 8kW · 12 Paneles 620W · Bat. Litio 14.3kWh",
-        precio: 6100000
-      };
-    } else if (consumoMensualKwh >= 550 || gastoMensualClp >= 130000 || tieneBombaPozo) {
-      kitElegido = {
-        nombre: "Kit Solar 8000W (Batería 8.75kW)",
-        detalles: "Inversor Híbrido 8kW · 12 Paneles 620W · Bat. Litio 8.75kW",
-        precio: 5000000
-      };
-    } else if (consumoMensualKwh >= 400 || gastoMensualClp >= 100000 || (esOffgrid && consumoMensualKwh >= 350)) {
-      kitElegido = {
-        nombre: "Kit Solar 6000W Premium",
-        detalles: "Inversor Híbrido 6kW · 8 Paneles Bifaciales 620W · Bat. Litio 8.75kW",
-        precio: 3700000
-      };
-    } else if (consumoMensualKwh >= 280 || gastoMensualClp >= 70000) {
-      kitElegido = {
-        nombre: "Kit Solar 6000W Plus",
-        detalles: "Inversor Híbrido 6kW · 8 Paneles Bifaciales 620W · Bat. Litio 5kW",
-        precio: 3000000
-      };
-    } else if (consumoMensualKwh >= 150 || gastoMensualClp >= 40000) {
-      kitElegido = {
-        nombre: "Kit Solar 6000W Básico",
-        detalles: "Inversor Híbrido 6kW · 6 Paneles Bifaciales 620W · Bat. Litio 5kW",
-        precio: 2700000
-      };
-    } else {
-      kitElegido = {
-        nombre: "Tu Primer Kit Solar 4kW",
-        detalles: "Inversor Híbrido 4kW · 3 Paneles 620W · Bat. Litio 2.5kW",
-        precio: 1750000
-      };
-    }
-
-    // Ahorro proyectado anual (85% de reducción)
-    const ahorroAnualClp = Math.round(gastoMensualClp * 12 * 0.85);
-
-    // Actualización visual en el panel
-    if (resConsumoKwh) resConsumoKwh.textContent = `${consumoMensualKwh} kWh/mes`;
-    if (resAhorroAnual) resAhorroAnual.textContent = `${formatCLP(ahorroAnualClp)}/año`;
-    if (resKitNombre) resKitNombre.textContent = kitElegido.nombre;
-    if (resKitDetalles) resKitDetalles.textContent = kitElegido.detalles;
-    if (resKitPrecio) resKitPrecio.innerHTML = `${formatCLP(kitElegido.precio)} <span style="font-size: 0.75rem; color: #64748B; font-weight: normal;">(Instalación Incluida)</span>`;
-
-    // Enlace dinámico a WhatsApp
-    if (calcWhatsappBtn) {
-      const msg = encodeURIComponent(`Hola lituSolar, realicé el dimensionamiento en la web: mi consumo es de ${consumoMensualKwh} kWh/mes (${formatCLP(gastoMensualClp)}/mes). La calculadora me recomendó el "${kitElegido.nombre}". Quisiera coordinar una visita técnica a terreno.`);
-      calcWhatsappBtn.href = `https://wa.me/56971995226?text=${msg}`;
-    }
-  }
-
-  // Listeners de eventos de cálculo
-  if (inputGastoLuz) inputGastoLuz.addEventListener('input', ejecutarCalculoExacto);
-  if (selectTipoSistema) selectTipoSistema.addEventListener('change', ejecutarCalculoExacto);
-  applianceChecks.forEach(chk => chk.addEventListener('change', ejecutarCalculoExacto));
-
-  // Inicializar cálculo al cargar la página
-  ejecutarCalculoExacto();
-
-  // --- 7. FORMULARIO DE CONTACTO ---
-  const contactoForm = document.querySelector('form');
-  const alertSuccess = document.querySelector('.alert-success');
-  if (contactoForm) {
-    contactoForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const submitBtn = contactoForm.querySelector('button[type="submit"]');
-      const originalText = submitBtn ? submitBtn.textContent : 'Enviar';
-
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Enviando solicitud...';
-      }
-
-      const payload = {
-        nombre: contactoForm.querySelector('#nombre')?.value || '',
-        email: contactoForm.querySelector('#email')?.value || '',
-        telefono: contactoForm.querySelector('#telefono')?.value || '',
-        mensaje: contactoForm.querySelector('#mensaje')?.value || '',
-        _hp_check: contactoForm.querySelector('#_hp_check')?.value || ''
-      };
-
-      try {
-        const res = await fetch(GOOGLE_API_URL, { method: 'POST', body: JSON.stringify(payload) });
-        const result = await res.json();
-        if (result.success) {
-          contactoForm.reset();
-          if (alertSuccess) {
-            alertSuccess.classList.add('active');
-            alertSuccess.textContent = '¡Muchas gracias! Tu solicitud ha sido registrada con éxito. Un asesor técnico te contactará a la brevedad.';
-          }
-        } else {
-          alert(result.message || 'Error al enviar.');
-        }
-      } catch (err) {
-        alert('Error de conexión. Escríbenos a info@litusolar.cl o al +56 9 7199 5226.');
-      } finally {
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.textContent = originalText;
-        }
-      }
-    });
-  }
-});
+  const
